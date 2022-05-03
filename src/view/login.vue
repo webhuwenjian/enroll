@@ -162,7 +162,7 @@ export default {
           if(this.selectName=="first"){
             console.log(this.loginForm.password)
             if(this.loginForm.data.name=="190150370"&& this.loginForm.data.password=="hwj123456789"){
-                this.$router.push({name:'home',})
+                this.$router.push({name:'matchcenter',})
             }else{
               this.$message.error('密码错误');
             }

@@ -22,10 +22,12 @@ const router = new VueRouter({
         },
         {
             path:'/login',
+            name:'login',
             component:login,
         },
         {
             path:'/home',
+            name:'home',
             component:home,
             children:[
                 {

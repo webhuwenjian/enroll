@@ -2,11 +2,27 @@
   <div class="file-submit">
     <el-row>
       <el-col :span="24">
-        <div class="grid-content bg-purple-dark">
-          <el-card class="box-card">
+        <div class="grid-content">
+          <el-card v-if="isSubmit" class="box-card">
              <el-form ref="form" :model="form" label-width="80px">
                 <el-form-item label="项目名称">
                   <el-input v-model="form.name"></el-input>
+                </el-form-item>
+                <el-form-item label="项目简介">
+                  <el-input type="textarea" v-model="form.projectDes"></el-input>
+                </el-form-item>
+                <el-form-item label="项目成员">
+                  <el-col :span="7">
+                    <el-input placeholder="指导教师" v-model="form.teacherName"></el-input> 
+                  </el-col>
+                  <el-col :span="1">--</el-col>
+                  <el-col :span="7">
+                    <el-input placeholder="团队负责人" v-model="form.studentOneName"></el-input> 
+                  </el-col>
+                  <el-col :span="1">--</el-col>
+                   <el-col :span="7">
+                    <el-input placeholder="小组成员" v-model="form.studentTwoName"></el-input> 
+                  </el-col>
                 </el-form-item>
                 <el-form-item label="报名单位">
                   <el-select v-model="form.region" placeholder="请选择报名单位">
@@ -14,17 +30,8 @@
                     <el-option label="区域二" value="beijing"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="报名时间">
-                  <el-col :span="11">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-                  </el-col>
-                  <el-col class="line" :span="2">----</el-col>
-                  <el-col :span="11">
-                    <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-                  </el-col>
-                </el-form-item>
-                <el-form-item label="即时配送">
-                  <el-switch v-model="form.delivery"></el-switch>
+               <el-form-item label="联系电话">
+                  <el-input v-model="form.phone"></el-input>
                 </el-form-item>
                 <el-form-item label="参赛类型">
                   <el-checkbox-group v-model="form.type">
@@ -35,12 +42,6 @@
                     <el-checkbox label="研究生创业组" name="type"></el-checkbox>
                     <el-checkbox label="研究生创意组" name="type"></el-checkbox>
                   </el-checkbox-group>
-                </el-form-item>
-                <el-form-item label="特殊资源">
-                  <el-radio-group v-model="form.resource">
-                    <el-radio label="线上品牌商赞助"></el-radio>
-                    <el-radio label="线下场地免费"></el-radio>
-                  </el-radio-group>
                 </el-form-item>
                 <el-form-item label="其它说明 ">
                   <el-input type="textarea" v-model="form.desc"></el-input>
@@ -91,6 +92,36 @@
                 <el-button type="primary">清屏</el-button>
               </div>
           </el-card>
+          <el-card v-else class="box-card">
+            <div class="progress-bar">
+              <el-steps :active="active" finish-status="success">
+                <el-step title="提交资料"></el-step>
+                <el-step title="资料审核"></el-step>
+                <el-step title="报名成功"></el-step>
+              </el-steps>
+            </div>
+            <div class="description">
+              <el-descriptions title="资料" direction="vertical" :column="4" border>
+                <el-descriptions-item label="项目名称">kooriookami</el-descriptions-item>
+                <el-descriptions-item label="项目介绍" :span="2">18100000000</el-descriptions-item>
+                <el-descriptions-item label="指导教师" >苏州市</el-descriptions-item>
+                <el-descriptions-item label="团队负责人" >苏州市</el-descriptions-item>
+                <el-descriptions-item label="小组成员" >苏州市</el-descriptions-item>
+                <el-descriptions-item label="参赛单位" >苏州市</el-descriptions-item>
+                <el-descriptions-item label="联系电话">18100000000</el-descriptions-item>
+                <el-descriptions-item label="参赛类型">18100000000</el-descriptions-item>
+                <el-descriptions-item label="备注">
+                <el-tag size="small">学校</el-tag>
+                </el-descriptions-item>
+                <el-descriptions-item label="其它说明">江苏省苏州市吴中区吴中大道 1188 号</el-descriptions-item>
+                <el-descriptions-item label="其它材料">
+                  <el-link href="https://element.eleme.io" target="_blank">报名申请表</el-link>
+                  <el-divider direction="vertical"></el-divider>
+                  <el-link href="https://element.eleme.io" target="_blank">项目说明书</el-link>
+                </el-descriptions-item>
+              </el-descriptions>
+            </div>
+          </el-card>
         </div>
       </el-col>
     </el-row>
@@ -104,14 +135,18 @@ export default {
       return{
         form: {
           name: '',
+          projectDes:'',
+          teacherName:'',
+          studentOneName:'',
+          studentTwoName:'',
           region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
+          phone:'',
           type: [],
           resource: '',
           desc: '',
         },
+        isSubmit:true,
+        active:1,
         dialogImageUrl: '',
         dialogVisible: false,
         disabled: false,
@@ -150,8 +185,9 @@ export default {
 
 <style scoped>
   .grid-content {
-    min-height: 500px;
-    max-height: 600px;
+    /* min-height: 500px;
+    max-height: 800px; */
+    height: 100%;
     margin-top: 15px;
     display: flex;
     justify-content: center;
@@ -167,6 +203,9 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+.description{
+  margin-top: 20px;
 }
         /*滚动条样式*/
 .grid-content::-webkit-scrollbar {
