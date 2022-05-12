@@ -1,18 +1,18 @@
 <template>
   <div class="project-style">
       <div class="project-img">
-        <el-image
-            style="width: 100px; height: 100px"
-            :src="projectObj.url"
-            :fit="cover">
-        </el-image>
+       <!--  <el-image
+            :src="url"
+            fit="cover">
+        </el-image> -->
+        <img :src="projectObj.url" style="width:100%;height:100%;"/>
       </div>
       <div class="project-description">
           {{projectObj.description}}
       </div>
-      <div class="project-author">
+     <!--  <div class="project-author">
           {{projectObj.author}}
-      </div>
+      </div> -->
   </div>
 </template>
 
@@ -31,7 +31,7 @@ export default {
     },
     data(){
         return{
-            url:'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+            url:require('../../../assets/img/login.png'),
             description:'这是一条测试数据，over！',
             author:'张三',
         }
@@ -47,15 +47,26 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size: 15px;
 }
 .project-style .project-img{
-    flex: 3;
+   /*  flex: 3; */
+   width: 170px;
+   height: 110px;
     padding: 4px;
-    text-align: center;
+    border-radius: 2px;
+ /*    border-color: red; */
+    display: flex;
+    /* margin: 4px; */
+    justify-content: center;
+    align-items: center;
+    /* background-color:#fff; */
+    background-color: #409EFF;
 }
 .projiect-style .project-description{
-    flex: 2;
+    flex: 3;
     text-align: center;
+    font-size: 12px;
 }
 .projiect-style .project-author{
     flex: 1;

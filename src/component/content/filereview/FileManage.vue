@@ -1,22 +1,36 @@
 <template>
      <el-container class="content">
-          <el-header height="40px" style="text-align: right; font-size: 12px">
+          <el-header class="el-header" style="text-align: right; font-size: 12px">
             <div class="header-button">
+              <div class="admin">
+                  <div class="img"><img src="../../../assets/img/new-admin.png" alt=""></div>
+                  <span>{{admin}}</span>
+            </div>
               <el-input  v-model="input" placeholder="请输入搜索内容" style="width=15px"></el-input>
               <el-button icon="el-icon-search">搜索</el-button>
-              <el-button type="primary">上传<i class="el-icon-upload el-icon--right"></i></el-button>
+              <!-- <el-button type="primary">上传<i class="el-icon-upload el-icon--right"></i></el-button> -->
               <el-button type="primary" icon="el-icon-download">批量下载</el-button>
             </div>
           </el-header>
           <el-main>
+            <div><info-window 
+            :visible="infoWindowVisible"
+            :projectInfo="infoWindowProjectInfo"
+            :teamInfo="infoWindowTeamInfo"
+            :sequennceNum="sequennceNum"
+            @cancel="updateVisivble"
+            @updateCheck="updateCheck"
+            /></div>
             <el-table
                   :data="tableData"
                   border
                   @select="selectTable"
                   @select-all="selectAllTable"
+                  :cell-style="rowStyle"
                   fit="true"
                   style="width: 100%">
                   <el-table-column
+                   header-align="center"
                     type="selection"
                     width="55">
                   </el-table-column>
@@ -24,46 +38,42 @@
                     fixed
                     prop="num"
                     label="序号"
+                    width="55"
+                     header-align="center"
                     >
                   </el-table-column>
                   <el-table-column
-                    fixed
-                    prop="date"
-                    label="提交日期"
-                   >
-                  </el-table-column>
-                  <el-table-column
-                    prop="name"
+                    prop="teamWorkName"
                     label="项目名称"
+                    header-align="center"
                     >
                   </el-table-column>
                   <el-table-column
-                    prop="province"
+                    prop="teamCategory"
                     label="赛道类别"
+                    header-align="center"
                     >
                   </el-table-column>
                   <el-table-column
-                    prop="city"
+                    prop="school"
                     label="报名单位"
+                    header-align="center"
                     >
                   </el-table-column>
                   <el-table-column
-                    prop="address"
-                    label="是否提交"
-                    >
-                  </el-table-column>
-                  <el-table-column
-                    prop="zip"
+                    prop="ischeck"
                     label="审核状态"
+                    header-align="center"
                    >
                   </el-table-column>
                   <el-table-column
                     fixed="right"
                     label="操作"
+                    header-align="center"
                     >
                     <template slot-scope="scope">
-                      <el-button @click="handleClick(scope.row)" type="primary" size="small">查看</el-button>
-                      <el-button type="primary" size="small">编辑</el-button>
+                      <el-button @click="handleClick(scope.row)" type="primary" size="small">查看信息</el-button>
+                      <el-button @click="downLoad(scope.row)"  type="primary" size="small">下载资料</el-button>
                     </template>
                   </el-table-column>
             </el-table>
@@ -86,49 +96,112 @@
 </template>
 
 <script>
+import InfoWindow from './InfoWindow.vue'
 export default {
     name:'FileManage',
     data(){
         return{
-            currentPage4: 4,
-            tableData: [{
-            num:1,
-            date: '2016-05-02',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-            }, {
-            num:2,
-            date: '2016-05-04',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1517 弄',
-            zip: 200333
-            }, {
-            num:3,
-            date: '2016-05-01',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1519 弄',
-            zip: 200333
-            }, {
-            num:4,
-            date: '2016-05-03',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1516 弄',
-            zip: 200333
-            }]
+          admin:'南京工业大学',
+          currentPage4: 4,
+          tableData: [],
+          infoWindowVisible:false,
+          infoWindowProjectInfo:null,
+          infoWindowTeamInfo:null,
+          sequennceNum:0,
         }
     },
+    components:{
+      InfoWindow,
+    },
+    mounted(){
+      this.uploadProject();
+    },
     methods:{
+        rowStyle(){
+           return "text-align:center"
+        },
         handleClick(row) {
-        console.log(row);
+          console.log(row)
+          //获取学校队伍
+          this.sequennceNum = row.num
+          this.$http.get('/school/Team',{
+            params:{
+              school:row.school
+            }
+          }).then((res)=>{
+            console.log(res)
+            this.infoWindowProjectInfo = res.data.data[0]
+          })
+          //获取队伍人员信息
+          this.$http.get('/school/TeamDetail',{
+            params:{
+              school:row.school,
+              teamCategory:row.teamCategory
+            }
+          }).then((res)=>{
+            console.log(res)
+            this.infoWindowTeamInfo = res.data.data
+          })
+          this.infoWindowVisible =true
+        },
+        updateVisivble(res){
+          console.log(res)
+          this.infoWindowVisible= res
+        },
+        updateCheck(res){
+          console.log(res)
+          console.log(this.tableData)
+          let newtableData=[]
+          this.tableData.map((item)=>{
+            if(item.num===res.num){
+              if(res.num==1){
+                item.ischeck = "已审核"
+              }
+            }
+            newtableData.push(item)
+          })
+          this.tableData = newtableData
+
+        },
+        downLoad(row){
+          console.log(row)
+            var url='http://139.224.188.129:3000/school/TeamWorkDownload?school='+
+            row.school+'&teamCategory='+row.teamCategory
+            var link = document.createElement('a');
+            link.href  = url;
+            link.click()
+           /* window.location.href = url */
+         /*   this.$http.get('/school/TeamWorkDownload',{
+            params:{
+              school:row.school,
+              teamCategory:row.teamCategory,
+            },
+            responseType: 'blob',
+          }).then((res)=>{
+            console.log(res)
+             const blob = new Blob([res.data],{type:'application/octet-stream'})
+            console.log(blob)
+            const fileName = row.teamWorkName+".pdf"
+            const link = document.createElement('a')
+            link.downLoad = fileName
+            link.style.display ='none'
+            link.href = window.URL.createObjectURL(blob)
+            document.body.appendChild(link)
+            link.click()
+            window.URL.revokeObjectURL(link.href)
+            document.body.removeChild(link)  */ 
+            /* const reader = new FileReader()
+            reader.readAsDataURL(res.data)
+            reader.onload=(e)=>{
+              const a = document.createElement('a')
+              a.download = row.teamWorkName
+              a.href = e.target.result
+              a.style.display = 'none'
+              document.body.appendChild(a)
+              a.click()
+              document.body.removeChild(a) */
+          /*   } */
+          /* })  */
         },
         selectTable(args){
         console.log(args)
@@ -141,12 +214,35 @@ export default {
         },
         handleCurrentChange(args){
         console.log(args)
+        },
+        uploadProject(){
+           let school= this.$store.state.school
+           this.admin = school
+           console.log(this.admin)
+            console.log(school)
+            this.$http.get('/school/TeamWork',{
+              params:{
+                school:school
+              }
+            }).then((res)=>{
+              console.log(res)
+              let data =[]
+              res.data.data.map((item,index)=>{
+                if(item.ischeck==0){
+                  item.ischeck= "未审核"
+                }
+                data.push(Object.assign({},item,{num:index+1}))
+              })
+              this.tableData=data
+           /*    this.tableData = res.data.data */
+           console.log(this.tableData)
+            })
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
   .content{
     height:calc(100vh - 100px);
     background-color: #fff;
@@ -162,6 +258,26 @@ export default {
 }
 .header-button{
   padding-top: 7px;
+  display: flex;
+  justify-content: right;
+  position: relative;
+}
+.admin{
+  position: absolute;
+  width: 80px;
+  margin-left: 20px;
+  top: 8px;
+  left: 4px;
+  display: flex;
+  flex-direction: column;
+  color: #409EFF;
+}
+.admin .img{
+  width: 80px;
+  text-align: center;
+}
+.admin img{
+  width: 20px;
 }
 .block{
   text-align: center;

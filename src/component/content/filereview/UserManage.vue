@@ -1,10 +1,14 @@
 <template>
   <el-container class="content">
-          <el-header height="50px" style="text-align: right; font-size: 12px">
+          <el-header  style="text-align: right; font-size: 12px">
             <div class="header-button">
+              <div class="admin">
+                  <div class="img"><img src="../../../assets/img/new-admin.png" alt=""></div>
+                  <span class="name">{{admin}}</span>
+              </div>
               <el-input  v-model="input" placeholder="请输入搜索内容" style="width=15px"></el-input>
               <el-button icon="el-icon-search">搜索</el-button>
-              <el-button icon="el-icon-plus" type="primary" >添加</el-button>
+              <el-button icon="el-icon-plus" type="primary" @click="addStudent" >添加</el-button>
               <el-button type="danger" style="height=40px">批量删除<i class="el-icon-delete el-icon--right"></i></el-button>
               <el-button type="primary" icon="el-icon-download">导出Excel</el-button>
             </div>
@@ -27,39 +31,39 @@
                     header-align="center"
                     fixed
                     prop="num"
-                    label="序号"
-                    >
+                    width="55"
+                    label="序号">
                   </el-table-column>
                   <el-table-column
                     fixed
                     header-align="center"
-                    prop="name"
-                    label="账户"
-                   >
+                    prop="username"
+                    label="账户">
                   </el-table-column>
                   <el-table-column
                     header-align="center"
                     prop="password"
-                    label="密码"
-                    >
+                    label="密码">
+                  </el-table-column>
+                   <el-table-column
+                    header-align="center"
+                    prop="teacherName"
+                    label="指导教师" >
                   </el-table-column>
                   <el-table-column
                     header-align="center"
-                    prop="userStatus"
-                    label="用户状态"
-                    >
+                    prop="teacherTelephone"
+                    label="联系电话">
                   </el-table-column>
                   <el-table-column
                     header-align="center"
-                    prop="role"
-                    label="角色"
-                    >
+                    prop="teacherWechat"
+                    label="微信号">
                   </el-table-column>
-                  <el-table-column
+                   <el-table-column
                     header-align="center"
-                    prop="registerDate"
-                    label="注册时间"
-                    >
+                    prop="teamCategory"
+                    label="参赛类别">
                   </el-table-column>
                   <el-table-column
                     header-align="center"
@@ -95,102 +99,20 @@ export default {
     name:'UserManage',
     data(){
         return{
-            currentPage4: 4,
-            tableData: [{
-            num:1,
-            name: '2016-05-02',
-            password: '王小虎',
-            userStatus: '上海',
-            role: '普陀区',
-            registerDate: 200333
-            }, {
-            num:1,
-            name: '2016-05-02',
-            password: '王小虎',
-            userStatus: '上海',
-            role: '普陀区',
-            registerDate: 200333
-            }, {
-            num:1,
-            name: '2016-05-02',
-            password: '王小虎',
-            userStatus: '上海',
-            role: '普陀区',
-            registerDate: 200333
-            }, {
-            num:1,
-            name: '2016-05-02',
-            password: '王小虎',
-            userStatus: '上海',
-            role: '普陀区',
-            registerDate: 200333
-            }, {
-            num:1,
-            name: '2016-05-02',
-            password: '王小虎',
-            userStatus: '上海',
-            role: '普陀区',
-            registerDate: 200333
-            }, {
-            num:1,
-            name: '2016-05-02',
-            password: '王小虎',
-            userStatus: '上海',
-            role: '普陀区',
-            registerDate: 200333
-            },{
-            num:1,
-            name: '2016-05-02',
-            password: '王小虎',
-            userStatus: '上海',
-            role: '普陀区',
-            registerDate: 200333
-            },
-            {
-            num:1,
-            name: '2016-05-02',
-            password: '王小虎',
-            userStatus: '上海',
-            role: '普陀区',
-            registerDate: 200333
-            },
-            {
-            num:1,
-            name: '2016-05-02',
-            password: '王小虎',
-            userStatus: '上海',
-            role: '普陀区',
-            registerDate: 200333
-            },
-            {
-            num:1,
-            name: '2016-05-02',
-            password: '王小虎',
-            userStatus: '上海',
-            role: '普陀区',
-            registerDate: 200333
-            },
-            {
-            num:1,
-            name: '2016-05-02',
-            password: '王小虎',
-            userStatus: '上海',
-            role: '普陀区',
-            registerDate: 200333
-            },
-            {
-            num:1,
-            name: '2016-05-02',
-            password: '王小虎',
-            userStatus: '上海',
-            role: '普陀区',
-            registerDate: 200333
-            }]
+          admin:'',
+          currentPage4: 4,
+          tableData: []
         }
+    },
+    mounted(){
+      this.uploadUser();
     },
     methods:{
         rowStyle(){
            return "text-align:center"
+        },
+        addStudent(){
+          this.$router.push({name:'addstudent'})
         },
         handleClick(row) {
         console.log(row);
@@ -206,6 +128,23 @@ export default {
         },
         handleCurrentChange(args){
         console.log(args)
+        },
+        uploadUser(){
+            let school= this.$store.state.school
+            this.admin = school
+            console.log(school)
+            this.$http.get('/school/Team',{
+              params:{
+                school:school
+              }
+            }).then((res)=>{
+              console.log(res)
+              let data =[]
+              res.data.data.map((item,index)=>{
+                data.push(Object.assign({},item,{num:index+1}))
+              })
+              this.tableData = data
+            })
         }
     }
 }
@@ -227,8 +166,31 @@ export default {
 }
  .header-button{
   padding-top: 7px;
-  height: 40px;
+  display: flex;
+  justify-content: right;
+  position: relative;
 } 
+.admin{
+  position: absolute;
+  width: 80px;
+  margin-left: 20px;
+  top: 8px;
+  left: 4px;
+  display: flex;
+  flex-direction: column;
+  color: #409EFF;
+}
+.admin .img{
+  width: 80px;
+  text-align: center;
+}
+.admin .name{
+  width: 80px;
+  text-align: center;
+}
+.admin img{
+  width: 20px;
+}
 .block{
   text-align: center;
 }

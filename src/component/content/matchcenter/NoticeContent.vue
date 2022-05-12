@@ -1,18 +1,18 @@
 <template>
   <div class="notice-content">
-      <div class="notice-img">
+   <!--    <div class="notice-img">
         <el-image
             style="width: 100px; height: 100px"
             :src="url"
             :fit="fill">
         </el-image>
-      </div>
+      </div> -->
       <div class="notice-date">
-          <span class="date-day">05/2</span>
-          <span class="date-year">2022</span>
+          <span class="date-day">{{content.month}}</span>
+          <span class="date-year">{{content.year}}</span>
       </div>
       <div class="notice-title">
-          <el-link type="primary">这是一条测试数数据，重复一遍,这是一条测试数数据，这是一条测试数数据over！</el-link>
+          <el-link :underline="false" :href="content.href" style="color:black;">{{content.title}}</el-link>
       </div>
   </div>
 </template>
@@ -20,6 +20,14 @@
 <script>
 export default {
     name:'NoticeContent',
+    props:{
+       content:{
+           type:Object,
+           default(){
+               return{} 
+           }
+       }
+    },
     data(){
         return{
             url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
@@ -41,25 +49,29 @@ export default {
     text-align: center;
 }
 .notice-date{
-    flex: 2;
+    flex: 1;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    /* box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1); */
 }
 .date-day{
     width: 80%;
     text-align: center;
-    font-size: 24px;
+    font-size: 16px;
     color: dodgerblue;
 }
 .notice-title{
-    flex: 6;
+    flex: 4;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 8px;
+}
+.notice-content:hover{
+    background-color:#66CCFF;
 }
 </style>

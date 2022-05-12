@@ -1,56 +1,50 @@
 <template>
   <div class="file-submit">
     <el-row>
-      <el-col :span="24">
+      <el-col :span="6">
+         <el-card class="notice-view">
+            <div slot="header" style="text-align:center; font-size:16px;">
+              <span>资料提交说明</span>
+            </div>
+            <div class="notice-content">
+              <p>(1)创新开发</p>
+              <p>①创新开发技术报告电子版(A4)，报告内容包括开发
+              目的、开发流程、技术手段、创新特色、功能、典型界面等;</p>
+              <p>②功能演示DEMO；</p>
+              <p>③汇报PPT</p>
+              <p>(2)创新设计</p>
+              <p>①创新设计报告电子版(A4)，报告内容包括设计目的、
+                设计(制作)流程、技术路线、创新特色、可行性论证等;</p>
+              <p>②汇报PPT</p>
+              <p>(3)创业计划</p>
+              <p>①创业计划书电子版(A4)，包括产品/服务介绍、市场
+              分析、营销方案、生产运作管理、财务预测等;</p>
+              <p>②汇报PPT。</p>
+           </div>
+          </el-card>
+      </el-col>
+      <el-col :span="14">
         <div class="grid-content">
-          <el-card v-if="isSubmit" class="box-card">
+          <el-card class="box-card">
              <el-form ref="form" :model="form" label-width="80px">
                 <el-form-item label="项目名称">
-                  <el-input v-model="form.name"></el-input>
-                </el-form-item>
-                <el-form-item label="项目简介">
-                  <el-input type="textarea" v-model="form.projectDes"></el-input>
-                </el-form-item>
-                <el-form-item label="项目成员">
-                  <el-col :span="7">
-                    <el-input placeholder="指导教师" v-model="form.teacherName"></el-input> 
-                  </el-col>
-                  <el-col :span="1">--</el-col>
-                  <el-col :span="7">
-                    <el-input placeholder="团队负责人" v-model="form.studentOneName"></el-input> 
-                  </el-col>
-                  <el-col :span="1">--</el-col>
-                   <el-col :span="7">
-                    <el-input placeholder="小组成员" v-model="form.studentTwoName"></el-input> 
-                  </el-col>
+                  <el-input v-model="form.projectname"></el-input>
                 </el-form-item>
                 <el-form-item label="报名单位">
-                  <el-select v-model="form.region" placeholder="请选择报名单位">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                  </el-select>
-                </el-form-item>
-               <el-form-item label="联系电话">
-                  <el-input v-model="form.phone"></el-input>
+                  <el-input v-model="this.$route.params.school" disabled="disabled"></el-input>
                 </el-form-item>
                 <el-form-item label="参赛类型">
-                  <el-checkbox-group v-model="form.type">
-                    <el-checkbox label="本科生开发组" name="type"></el-checkbox>
-                    <el-checkbox label="本科生创业组" name="type"></el-checkbox>
-                    <el-checkbox label="本科生创意组" name="type"></el-checkbox>
-                    <el-checkbox label="研究生开发组" name="type"></el-checkbox>
-                    <el-checkbox label="研究生创业组" name="type"></el-checkbox>
-                    <el-checkbox label="研究生创意组" name="type"></el-checkbox>
-                  </el-checkbox-group>
-                </el-form-item>
-                <el-form-item label="其它说明 ">
-                  <el-input type="textarea" v-model="form.desc"></el-input>
+                  <el-input v-model="this.$route.params.teamCategory" disabled="disabled"></el-input>
                 </el-form-item>
                 <el-form-item label="上传材料">
                   <el-upload
-                    action="#"
+                    ref="upload"
+                    action=""
                     list-type="picture-card"
+                    :file-list="fileList"
+                    :on-success="onSuccess"
                     :on-change="onChange"
+                    :http-request="uploadMehod"
                     :auto-upload="false">
                     <i slot="default" class="el-icon-plus"></i>
                     <div slot="file" slot-scope="{file}">
@@ -92,36 +86,6 @@
                 <el-button type="primary">清屏</el-button>
               </div>
           </el-card>
-          <el-card v-else class="box-card">
-            <div class="progress-bar">
-              <el-steps :active="active" finish-status="success">
-                <el-step title="提交资料"></el-step>
-                <el-step title="资料审核"></el-step>
-                <el-step title="报名成功"></el-step>
-              </el-steps>
-            </div>
-            <div class="description">
-              <el-descriptions title="资料" direction="vertical" :column="4" border>
-                <el-descriptions-item label="项目名称">kooriookami</el-descriptions-item>
-                <el-descriptions-item label="项目介绍" :span="2">18100000000</el-descriptions-item>
-                <el-descriptions-item label="指导教师" >苏州市</el-descriptions-item>
-                <el-descriptions-item label="团队负责人" >苏州市</el-descriptions-item>
-                <el-descriptions-item label="小组成员" >苏州市</el-descriptions-item>
-                <el-descriptions-item label="参赛单位" >苏州市</el-descriptions-item>
-                <el-descriptions-item label="联系电话">18100000000</el-descriptions-item>
-                <el-descriptions-item label="参赛类型">18100000000</el-descriptions-item>
-                <el-descriptions-item label="备注">
-                <el-tag size="small">学校</el-tag>
-                </el-descriptions-item>
-                <el-descriptions-item label="其它说明">江苏省苏州市吴中区吴中大道 1188 号</el-descriptions-item>
-                <el-descriptions-item label="其它材料">
-                  <el-link href="https://element.eleme.io" target="_blank">报名申请表</el-link>
-                  <el-divider direction="vertical"></el-divider>
-                  <el-link href="https://element.eleme.io" target="_blank">项目说明书</el-link>
-                </el-descriptions-item>
-              </el-descriptions>
-            </div>
-          </el-card>
         </div>
       </el-col>
     </el-row>
@@ -134,7 +98,7 @@ export default {
     data(){
       return{
         form: {
-          name: '',
+          projectname:'',
           projectDes:'',
           teacherName:'',
           studentOneName:'',
@@ -145,6 +109,7 @@ export default {
           resource: '',
           desc: '',
         },
+        fileList:[],
         isSubmit:true,
         active:1,
         dialogImageUrl: '',
@@ -153,21 +118,38 @@ export default {
         imgUrl:require("../../assets/img/pdf.png")
       }
     },
+  mounted(){
+ 
+  },
   methods:{
-    onSubmit() {
-        console.log('submit!');
+    async onSubmit() {
+        /* const{data:res} = await this.$http.get('/data')
+        console.log(res.data) */
+        this.$refs.upload.submit();
     },
-    onChange(file){
-      let str = file.name;
-      let start = str.indexOf(".");
-      let len = str.length;
-      if(str.substring(start+1,len)=="pdf"){
-        this.imgUrl=require('../../assets/img/pdf.png');
-      }else if(str.substring(start+1,len)=="docx"){
-        this.imgUrl=require('../../assets/img/word.png');
-      }else{
-        this.imgUrl=require('../../assets/img/excel.png');
-      }
+    onChange(item){
+      console.log(item)
+    },
+   async uploadMehod(params){
+      console.log(params)
+      let formData = new FormData()
+      let file = params.file
+      formData.append('file',file)
+      formData.append('school',this.$route.params.school)
+      formData.append('teamCategory',this.$route.params.teamCategory)
+      formData.append('teamWorkName',this.form.projectname)
+      const {data:res} =await this.$http({
+        url:'/student/zipUpload',
+        method:'post',
+        data:formData,
+        headers:{
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      console.log(res)
+    },
+    onSuccess(response, file, fileList){
+      console.log(response)
     },
     handleRemove(file) {
         console.log(file);
@@ -187,16 +169,25 @@ export default {
   .grid-content {
     /* min-height: 500px;
     max-height: 800px; */
-    height: 100%;
+    width: 100%;
+    height: calc(100vh - 95px);
     margin-top: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: auto;
+    overflow: hidden;
+    padding: 40px;
+  }
+.notice-view{
+  margin-top: 55px;
+  }
+  .notice-content{
+    font-size: 15px;
   }
 .box-card {
-    width: 50%;
+    width: 100%;
     height: 100%;
+    overflow: auto;
   }
 
 .btn-content{
@@ -208,15 +199,15 @@ export default {
   margin-top: 20px;
 }
         /*滚动条样式*/
-.grid-content::-webkit-scrollbar {
-    width: 2px;    
+.box-card::-webkit-scrollbar {
+    width: 1px;    
 }
-.grid-content::-webkit-scrollbar-thumb {
+.box-card::-webkit-scrollbar-thumb {
     border-radius: 10px;
   -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
   background: rgba(0,0,0,0.2);
 }
-.grid-content::-webkit-scrollbar-track {
+.box-card::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
   border-radius: 0;
   background: rgba(0,0,0,0.1);
