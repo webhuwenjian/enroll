@@ -6,8 +6,8 @@
                   <div class="img"><img src="../../../assets/img/new-admin.png" alt=""></div>
                   <span>{{admin}}</span>
             </div>
-              <el-input  v-model="input" placeholder="请输入搜索内容" style="width=15px"></el-input>
-              <el-button icon="el-icon-search">搜索</el-button>
+              <!-- <el-input  v-model="input" placeholder="请输入搜索内容" style="width=15px"></el-input> -->
+              <!-- <el-button icon="el-icon-search">搜索</el-button> -->
               <!-- <el-button type="primary">上传<i class="el-icon-upload el-icon--right"></i></el-button> -->
               <el-button type="primary" icon="el-icon-download">批量下载</el-button>
             </div>
@@ -27,7 +27,6 @@
                   @select="selectTable"
                   @select-all="selectAllTable"
                   :cell-style="rowStyle"
-                  fit="true"
                   style="width: 100%">
                   <el-table-column
                    header-align="center"
@@ -105,9 +104,10 @@ export default {
           currentPage4: 4,
           tableData: [],
           infoWindowVisible:false,
-          infoWindowProjectInfo:null,
-          infoWindowTeamInfo:null,
+          infoWindowProjectInfo:{},
+          infoWindowTeamInfo:{},
           sequennceNum:0,
+          school:''
         }
     },
     components:{
@@ -129,8 +129,9 @@ export default {
               school:row.school
             }
           }).then((res)=>{
-            console.log(res)
-            this.infoWindowProjectInfo = res.data.data[0]
+            /* console.log(res) */
+            //利用自定义序号取出点击的队伍信息
+            this.infoWindowProjectInfo = res.data.data[row.num-1]
           })
           //获取队伍人员信息
           this.$http.get('/school/TeamDetail',{
@@ -140,7 +141,15 @@ export default {
             }
           }).then((res)=>{
             console.log(res)
-            this.infoWindowTeamInfo = res.data.data
+            let data =[]
+            res.data.data.map((item)=>{
+              if(item.name!=""&&
+                item.major!=""&&
+                item.studentID!=""){
+                  data.push(item)
+                }
+            })
+            this.infoWindowTeamInfo = data
           })
           this.infoWindowVisible =true
         },
@@ -149,8 +158,15 @@ export default {
           this.infoWindowVisible= res
         },
         updateCheck(res){
-          console.log(res)
-          console.log(this.tableData)
+          console.log(res,this.school)
+          this.$http.post('/school/TeamFileCheck',
+          {
+            school:this.school,
+            teamCategory:res.teamCategory
+          }).then((res)=>{
+            console.log(res)
+          })
+        /*   console.log(this.tableData)
           let newtableData=[]
           this.tableData.map((item)=>{
             if(item.num===res.num){
@@ -160,8 +176,10 @@ export default {
             }
             newtableData.push(item)
           })
-          this.tableData = newtableData
-
+          this.tableData = newtableData */
+         /*  this.$http.post('/school/TeamFileCheck',{
+            school
+          }) */
         },
         downLoad(row){
           console.log(row)
@@ -217,6 +235,7 @@ export default {
         },
         uploadProject(){
            let school= this.$store.state.school
+           this.school = school
            this.admin = school
            console.log(this.admin)
             console.log(school)
@@ -230,11 +249,12 @@ export default {
               res.data.data.map((item,index)=>{
                 if(item.ischeck==0){
                   item.ischeck= "未审核"
+                }else{
+                  item.ischeck= "已审核"
                 }
                 data.push(Object.assign({},item,{num:index+1}))
               })
               this.tableData=data
-           /*    this.tableData = res.data.data */
            console.log(this.tableData)
             })
         }

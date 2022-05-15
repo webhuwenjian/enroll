@@ -1,109 +1,85 @@
 <template>
    <div class="login">
-    <el-row class="login_row" align="middle" type="flex">
-    <!--   <el-col :xs="{span:0,offset:0}"
-              :sm="{span:1,offset:0}"
-              :md="{span:8,offset:1}"
-              :lg="{span:8,offset:3}"
-              :xl="{span:8,offset:5}">
-              <div class="leftCon" v-if="vis">
-                  <div class="stu-info" >
-                    <span style="font-size: 30px; font-weight: 550; display: block; text-align:center;">
-                      江苏省高校测绘地理信息创新创业大赛
-                    </span>
-                    <br>
-                    <div style="text-indent: 2em">
-                      <p>
-                        为积极响应“大众创业、万众创新”的号召，提升广大测绘青年的学术交流水平，提高我省测绘地理信息类在校大学生和研究生的创新意识和创业能力，促进测绘地理信息产学研技术应用，经研究，定于2021年10月在南京工业大学举办第六届江苏省高校测绘地理信息创新创业大赛。
-                      </p>
-                      <p>
-                        主办：江苏省测绘地理信息学会
-                      </p>
-                      <p>              
-                        承办：江苏省测绘地理信息学会新技术应用工作委员会 南京工业大学
-                      </p>
-                    </div>
-                  </div>
-              </div>
-      </el-col> -->
-
+    <el-row>
       <el-col :span="24">
-            <!--   参赛队伍登录入口 -->
-        <el-card class="login-card" v-if="this.$route.params.isRole" shadow="always">
-          <div style="width:100%; text-align: center;font-weight: bold;font-size: 20px;"></div>
-                <el-form ref="loginForm"
-                    label-position='right'
-                    label-width="auto"
-                    :model='loginForm.data'
-                    :rules='loginForm.rule'>
-                    <el-form-item label="账号" prop="name" >
-                         <el-input
-                            placeholder="邮箱/手机号码"
-                            prefix-icon="el-icon-user-solid"
-                            v-model="loginForm.data.username">
-                        </el-input>
-                    </el-form-item>
-                    <el-form-item label="密码" prop="password">
-                        <el-input
-                            type='password'
-                            placeholder="请输入密码"
-                            prefix-icon="el-icon-lock"
-                            @keyup.enter.native='doEnter'
-                            v-model="loginForm.data.password">
-                        </el-input>
-                    </el-form-item>
-                </el-form>
-          <el-button type="primary" @click="studentLogin" class="enter-button">登录</el-button>
-        </el-card>
-        <!-- 工作人员登录入口 -->
-        <el-card class="login-card" v-else  shadow="always">
-          <!-- <div style="width:100%; text-align: center;font-weight: bold;font-size: 20px;">工作人员登录入口</div> -->
-          <!--   <el-popover
-                placement="left"
-                title="标题"
-                width="200"
-                trigger="manual"
-                content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
-                v-model="visible">
-                <el-button slot="reference" @click="visible = !visible">手动激活</el-button>
-              </el-popover> -->
-                <el-form ref="loginForm"
-                    label-position='right'
-                    label-width="auto"
-                    :model='loginForm2.data'
-                    :rules='loginForm2.rule'>
-                    <el-form-item label="账号" prop="name" >
-                         <el-input
-                            placeholder="邮箱/手机号码"
-                            prefix-icon="el-icon-user-solid"
-                            v-model="loginForm2.data.name">
-                        </el-input>
-                    </el-form-item>
-                    <el-form-item label="密码" prop="password">
-                        <el-input
-                            type='password'
-                            placeholder="请输入密码"
-                            prefix-icon="el-icon-lock"
-                            @keyup.enter.native='doEnter'
-                            v-model="loginForm2.data.password">
-                        </el-input>
-                    </el-form-item>
-                    <el-form-item label="角色" prop="">
-                      <el-select style="width:100%" 
-                            v-model="value" 
-                            @change="onChange"
-                            placeholder="请选择">
-                        <el-option
-                          v-for="item in options"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value">
-                        </el-option>
-                      </el-select>
-                    </el-form-item>
-                </el-form>
-          <el-button type="primary" @click="doEnter" class="enter-button">登录</el-button>
-        </el-card>
+        <div class="login-bar">
+                   <!--   参赛队伍登录入口 -->
+          <el-card class="login-card" v-if="this.$route.params.isRole" shadow="always">
+            <div style="width:100%; text-align: center;font-weight: bold;font-size: 20px;">江苏省高校测绘地理信息创新创业大赛</div>
+                  <el-form ref="loginForm"
+                      label-position='right'
+                      label-width="auto"
+                      :model='loginForm.data'
+                      :rules='loginForm.rule'>
+                      <el-form-item label="账号" prop="name" >
+                          <el-input
+                              placeholder="邮箱/手机号码"
+                              prefix-icon="el-icon-user-solid"
+                              v-model="loginForm.data.username">
+                          </el-input>
+                      </el-form-item>
+                      <el-form-item label="密码" prop="password">
+                          <el-input
+                              type='password'
+                              placeholder="请输入密码"
+                              prefix-icon="el-icon-lock"
+                              @keyup.enter.native='doEnter'
+                              v-model="loginForm.data.password">
+                          </el-input>
+                      </el-form-item>
+                  </el-form>
+            <el-button type="primary" @click="studentLogin" class="enter-button">登录</el-button>
+          </el-card>
+          <!-- 工作人员登录入口 -->
+          <el-card class="login-card" v-else  shadow="always">
+            <div style="width:100%; text-align: center;font-weight: bold;font-size: 20px;">江苏省高校测绘地理信息创新创业大赛</div>
+            <!--   <el-popover
+                  placement="left"
+                  title="标题"
+                  width="200"
+                  trigger="manual"
+                  content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
+                  v-model="visible">
+                  <el-button slot="reference" @click="visible = !visible">手动激活</el-button>
+                </el-popover> -->
+                  <el-form ref="loginForm"
+                      label-position='right'
+                      label-width="auto"
+                      :model='loginForm2.data'
+                      :rules='loginForm2.rule'>
+                      <el-form-item label="账号" prop="name" >
+                          <el-input
+                              placeholder="邮箱/手机号码"
+                              prefix-icon="el-icon-user-solid"
+                              v-model="loginForm2.data.name">
+                          </el-input>
+                      </el-form-item>
+                      <el-form-item label="密码" prop="password">
+                          <el-input
+                              type='password'
+                              placeholder="请输入密码"
+                              prefix-icon="el-icon-lock"
+                              @keyup.enter.native='doEnter'
+                              v-model="loginForm2.data.password">
+                          </el-input>
+                      </el-form-item>
+                      <el-form-item label="角色" prop="">
+                        <el-select style="width:100%" 
+                              v-model="value" 
+                              @change="onChange"
+                              placeholder="请选择">
+                          <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
+                  </el-form>
+            <el-button type="primary" @click="doEnter" class="enter-button">登录</el-button>
+          </el-card>
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -128,17 +104,17 @@ export default {
         rule: {
           name: [
             {required: true, message: '请输入账号', trigger: 'blur'},
-            {pattern: '^([0-9]{9})$', message: '账号不能为空', trigger: 'blur'}
+           /*  {pattern: '^([0-9]{9})$', message: '账号不能为空', trigger: 'blur'} */
           ],
           password: [
             {required: true, message: '密码不能为空', trigger: 'blur'},
-            {
+        /*     {
               min: 6,
               max: 16,
               pattern: "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$",
               message: '密码为6-16位字母与数字组成,请输入正确的密码',
               trigger: 'blur'
-            }
+            } */
           ],
         }
         },
@@ -151,17 +127,17 @@ export default {
         rule: {
           name: [
             {required: true, message: '请输入账号', trigger: 'blur'},
-            {pattern: '^([0-9]{9})$', message: '账号不能为空', trigger: 'blur'}
+            /* {pattern: '^([0-9]{9})$', message: '账号不能为空', trigger: 'blur'} */
           ],
           password: [
             {required: true, message: '密码不能为空', trigger: 'blur'},
-            {
+        /*     {
               min: 6,
               max: 16,
               pattern: "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$",
               message: '密码为6-16位字母与数字组成,请输入正确的密码',
               trigger: 'blur'
-            }
+            } */
           ],
         }
         },
@@ -176,7 +152,6 @@ export default {
             window.addEventListener('resize', () => {
             this.vis = document.body.clientWidth >= 992;
         })
-        console.log(this.$route.params.isRole)
     },
     methods:{
          handleClick(key){
@@ -223,6 +198,7 @@ export default {
                 }).then((res)=>{
                   console.log(res)
                   if(res.data.status===200){
+                    sessionStorage.setItem("token", res.status);
                     this.$router.push({name:'filesubmit',params:{school:res.data.data[0].school,
                       teamCategory:res.data.data[0].teamCategory
                     }})
@@ -246,11 +222,12 @@ p {
   }
   .login-card {
     border-radius: 15px;
-    max-width: 430px;
-    min-width: 270px;
+    max-width: 530px;
+    min-width: 450px;
     background: rgba(255, 255, 255, 0.618);
     margin: 0 auto;
-    margin-top: 80px;
+   /*  margin-top: 80px; */
+   margin-right: 40px;
   }
 
   .el-form {
@@ -306,19 +283,16 @@ p {
     color: 	#191970;
   }
 
-  .login_row {
+  .login_bar {
     width: 100%;;
-    height: 100vh;
-    margin: auto;
-    left: 0;
-    right: 0;
-    top: -10%;
-    bottom: 0;
+    height: 100%;
   }
-  
   .login{
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: right;
+    align-items: center;
     background: url('../assets/img/login.png') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;

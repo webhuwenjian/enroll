@@ -6,8 +6,8 @@
                   <div class="img"><img src="../../../assets/img/new-admin.png" alt=""></div>
                   <span class="name">{{admin}}</span>
               </div>
-              <el-input  v-model="input" placeholder="请输入搜索内容" style="width=15px"></el-input>
-              <el-button icon="el-icon-search">搜索</el-button>
+            <!--   <el-input  v-model="input" placeholder="请输入搜索内容" style="width=15px"></el-input>
+              <el-button icon="el-icon-search">搜索</el-button> -->
               <el-button icon="el-icon-plus" type="primary" @click="addStudent" >添加</el-button>
               <el-button type="danger" style="height=40px">批量删除<i class="el-icon-delete el-icon--right"></i></el-button>
               <el-button type="primary" icon="el-icon-download">导出Excel</el-button>

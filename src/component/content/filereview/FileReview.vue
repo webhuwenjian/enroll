@@ -9,14 +9,14 @@
               <el-menu-item-group>
                 <el-menu-item index="1-1">用户管理</el-menu-item>
                 <el-menu-item index="1-2">权限管理</el-menu-item>
-                <el-menu-item index="1-3">角色管理</el-menu-item>
+               <!--  <el-menu-item index="1-3">角色管理</el-menu-item> -->
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="2">
               <template slot="title"><i class="el-icon-folder"></i>资料管理</template>
               <el-menu-item-group>
                 <el-menu-item index="2-1">资料管理</el-menu-item>
-                <el-menu-item index="2-2">其它管理</el-menu-item>
+              <!--   <el-menu-item index="2-2">其它管理</el-menu-item> -->
               </el-menu-item-group>
             </el-submenu>
           </el-menu>

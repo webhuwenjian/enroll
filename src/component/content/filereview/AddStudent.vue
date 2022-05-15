@@ -216,7 +216,46 @@ export default {
                     return
                 }
             }
-           
+            const studentInfo = [{
+                                school:this.school,
+                                name:this.form.studentOneName,
+                                teamCategory:this.form.teamCategory[0],
+                                major:this.form.studentMajorOne,
+                                studentID:this.form.studentIdOne,
+                                telephone:this.form.studentPhoneOne
+                             },
+                             {
+                                school:this.school,
+                                name:this.form.studentTwoName,
+                                teamCategory:this.form.teamCategory[0],
+                                major:this.form.studentMajorTwo,
+                                studentID:this.form.studentIdTwo,
+                                telephone:this.form.studentPhoneTwo
+                             },
+                             {
+                                school:this.school,
+                                name:this.form.studentThreeName,
+                                teamCategory:this.form.teamCategory[0],
+                                major:this.form.studentMajorThree,
+                                studentID:this.form.studentIdThree,
+                                telephone:this.form.studentPhoneThree
+                             },
+                            {
+                                school:this.school,
+                                name:this.form.studentFourName,
+                                teamCategory:this.form.teamCategory[0],
+                                major:this.form.studentMajorFour,
+                                studentID:this.form.studentIdFour,
+                                telephone:this.form.studentPhoneFour
+                             },]
+            for(let x =0;x<studentCode.length;x++){
+                if(studentCode[x]==""){
+                    console.log(x)
+                    delete studentInfo[x]
+                }
+            }
+           const newstudentInfo = studentInfo.filter(d=>d)
+           console.log(newstudentInfo)
                 if(true){
                     this.$http.post('/school/TeamRegister',{
                          teamInfo:{
@@ -232,40 +271,7 @@ export default {
                              password:this.form.password,
                              school:this.school
                          },
-                         studentInfo:[
-                             {
-                                school:this.school,
-                                name:this.form.studentOneName,
-                                teamCategory:this.form.teamCategory,
-                                major:this.form.studentMajorOne,
-                                studentID:this.form.studentIdOne,
-                                telephone:this.form.studentPhoneOne
-                             },
-                             {
-                                school:this.school,
-                                name:this.form.studentTwoName,
-                                teamCategory:this.form.teamCategory,
-                                major:this.form.studentMajorTwo,
-                                studentID:this.form.studentIdTwo,
-                                telephone:this.form.studentPhoneTwo
-                             },
-                             {
-                                school:this.school,
-                                name:this.form.studentThreeName,
-                                teamCategory:this.form.teamCategory,
-                                major:this.form.studentMajorThree,
-                                studentID:this.form.studentIdThree,
-                                telephone:this.form.studentPhoneThree
-                             },
-                            {
-                                school:this.school,
-                                name:this.form.studentFourName,
-                                teamCategory:this.form.teamCategory,
-                                major:this.form.studentMajorFour,
-                                studentID:this.form.studentIdFour,
-                                telephone:this.form.studentPhoneFour
-                             },
-                         ]
+                         studentInfo:newstudentInfo
                     }).then((res)=>{
                         console.log(res)
                         if(res.data.status===200){

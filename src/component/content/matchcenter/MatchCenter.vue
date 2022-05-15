@@ -15,7 +15,6 @@
           <div class="scroll-view">
            <el-carousel height="500px" style="padding:8px">
               <el-carousel-item v-for="item in imgList" :key="item.id">
-               <!--  <img :src="item.imgUrl" class="image"> -->
                 <el-image
                 style="width:100%;height:100%;"
                   :src="item.imgUrl"
@@ -121,11 +120,11 @@
         <div class="footer">
            <el-divider style="background-color: #fff;">友情链接</el-divider>
           <div class="href">
-            <el-link type="primary" class="href-item">江苏省测绘地理信息学会</el-link>
-            <el-link type="primary" class="href-item"></el-link>
+            <el-link type="primary" class="href-item"  href="http://www.chxh.cn/" target="_blank" >江苏省测绘地理信息学会</el-link>
+            <el-link type="primary" class="href-item" href="http://zrzy.jiangsu.gov.cn/" target="_blank">江苏省自然资源厅</el-link>
+        <!--     <el-link type="primary" class="href-item">主要链接</el-link>
             <el-link type="primary" class="href-item">主要链接</el-link>
-            <el-link type="primary" class="href-item">主要链接</el-link>
-            <el-link type="primary" class="href-item">主要链接</el-link>
+            <el-link type="primary" class="href-item">主要链接</el-link> -->
           </div>
         </div>
       </el-col>
@@ -155,7 +154,7 @@ export default {
         imgList:[{id:1,imgUrl:require('../../../assets/img/scrollview/img1.jpg')},
                  {id:2,imgUrl:require('../../../assets/img/scrollview/img2.jpg')},
                  {id:3,imgUrl:require('../../../assets/img/scrollview/img3.jpg')},
-                 {id:4,imgUrl:require('../../../assets/img/scrollview/img4.jpg')},],
+                 {id:4,imgUrl:require('../../../assets/img/scrollview/img5.jpg')},],
         listData:[
           {"url":require('../../../assets/img/projectstyle/project1.png'),"description":'研究生开发组一等奖作品',"author":'张三'},
           {"url":require('../../../assets/img/projectstyle/project2.png'),"description":'研究生开发组特等奖作品',"author":'张三'},
@@ -227,9 +226,9 @@ export default {
 </script>
 
 <style scoped>
-  .match-center{
+/*   .match-center{
     margin-top: 4px;
-  }
+  } */
   .grid-content {
     height: 100%;
     background-color: #fff;
@@ -310,6 +309,7 @@ export default {
     height: 100%;
     padding-top: 8px;
     margin-left: 7px;
+    margin-bottom: 8px;
   }
   .projects-style{
     height: 100%;
@@ -473,7 +473,7 @@ export default {
   }
   .href-item{
     margin-right: 8px;
-    color: #000;
+    color: #fff;
   }
   .notice-content  .el-divider--horizontal{
     margin: 0;
@@ -488,6 +488,19 @@ export default {
   background: rgba(0,0,0,0.2);
 }
 .orgnaization-name::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  border-radius: 0;
+  background: rgba(0,0,0,0.1);
+ }
+ .match-center::-webkit-scrollbar {
+    width: 4px;    
+}
+.match-center::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.2);
+}
+.match-center::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
   border-radius: 0;
   background: rgba(0,0,0,0.1);

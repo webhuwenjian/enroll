@@ -11,33 +11,28 @@
                   <span>江苏省高校测绘地理信息创新创业大赛</span>
                 </div>
              </el-col>
-             <el-col :span="3">
-               <div class="grid-content bg-purple-dark"></div>
+             <el-col :span="7">
+               <div style="color:#409EFF;font-size:2px;">1</div>
              </el-col>
-             <el-col :span="11">
+             <el-col :span="8">
                 <div class="tabbar">
                    <el-menu
-                      :default-active="activeIndex"
+                       router
+                      :default-active="$route.path"
                       class="el-menu"
                       mode="horizontal"
                       @select="handleSelect"
                       text-color="#000"
                       active-text-color="#ffd04b">
-                    <el-menu-item index="1">首页</el-menu-item>
-                    <el-menu-item index="2">关于大赛</el-menu-item>
-                    <el-menu-item index="3">通知公告</el-menu-item>
-                    <el-menu-item index="3">参赛指南</el-menu-item>
-                    <el-menu-item index="5" :disabled="disabled">往届回顾</el-menu-item>
+                    <el-menu-item index="/matchcenter">首&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp页</el-menu-item>
+                  <!--   <el-menu-item index="2">关于大赛</el-menu-item> -->
+                    <el-menu-item index="/noticeview">通知公告</el-menu-item>
+                   <!--  <el-menu-item index="3">参赛指南</el-menu-item> -->
+                    <el-menu-item index="/reviewview" :disabled="disabled">往届回顾</el-menu-item>
                     <el-menu-item index="4"><a href="http://cge.njtech.edu.cn/" target="_blank">关于我们</a></el-menu-item>
                   </el-menu>
                 </div>
              </el-col>
-       <!--       <el-col :span="1">
-                <div class="admin-img">
-                  <i class="el-icon-user-solid"></i>
-                  <span>{{admin}}</span>
-                </div>
-             </el-col> -->
         </el-row>
     </div>
 </template>
@@ -55,15 +50,15 @@ export default {
     },
   methods:{
     handleSelect(key, keyPath) {
-        if(key==1){
-          /* this.$router.push({name:'matchcenter'}) */
+    /*     if(key==1){
+          this.$router.push({name:'matchcenter'})
         }else if(key==2){
-          /* this.$router.push({name:'filesubmit'}) */
+          this.$router.push({name:'notice'})
         }else if(key==3){
-         /*  this.$router.push({name:'filereview'}) */
+         this.$router.push({name:'notice'})
         }else if(key==5){
-          /* this.$router.push({name:'supermanage'}) */
-        }
+          this.$router.push({name:'supermanage'})
+        }  */
       }
   }  
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="info-window">
     <el-dialog title="参赛队伍详细信息" 
-        :visible="visible"
+        :visible.sync="visible"
         :before-close="handleClose"
         style="over-flow:auto;">
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
@@ -19,10 +19,10 @@
                <div v-for="(item,index) in teamInfo" :key="index" >
                 <el-descriptions title="" direction="vertical" :column="4" border>
                     <el-descriptions-item label="选手姓名">{{item.name}}</el-descriptions-item>
-                    <el-descriptions-item label="学校">{{item.school}}</el-descriptions-item>
-                    <el-descriptions-item label="学号" :span="2">{{item.studentID}}</el-descriptions-item>
+                  <!--   <el-descriptions-item label="学校">{{item.school}}</el-descriptions-item> -->
+                    <el-descriptions-item label="学号">{{item.studentID}}</el-descriptions-item>
                     <el-descriptions-item label="专业">{{item.major}}</el-descriptions-item>
-                    <el-descriptions-item label="参赛类别">{{item.teamCategory}}</el-descriptions-item>
+                 <!--    <el-descriptions-item label="参赛类别">{{item.teamCategory}}</el-descriptions-item> -->
                     <el-descriptions-item label="联系电话">{{item.telephone}}</el-descriptions-item>
                 </el-descriptions>
                </div>
@@ -46,7 +46,7 @@ export default {
         "sequennceNum"
     ],
     mounted(){
-        console.log(this.InfoData)
+        /* console.log(this.projectInfo) */
         this.infoData = this.InfoData
     },
     data(){
@@ -63,7 +63,7 @@ export default {
     },
     methods:{
         reviewPass(){
-            this.$emit('updateCheck',{result:1,num:this.sequennceNum})
+            this.$emit('updateCheck',{teamCategory:this.projectInfo.teamCategory})
         },
         cancel(){
             this.visible = false

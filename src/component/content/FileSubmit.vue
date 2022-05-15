@@ -8,18 +8,20 @@
             </div>
             <div class="notice-content">
               <p>(1)创新开发</p>
-              <p>①创新开发技术报告电子版(A4)，报告内容包括开发
+              <p class="p_content">①创新开发技术报告电子版(A4)，报告内容包括开发
               目的、开发流程、技术手段、创新特色、功能、典型界面等;</p>
-              <p>②功能演示DEMO；</p>
-              <p>③汇报PPT</p>
+              <p class="p_content">②功能演示DEMO；</p>
+              <p class="p_content">③汇报PPT</p>
               <p>(2)创新设计</p>
-              <p>①创新设计报告电子版(A4)，报告内容包括设计目的、
+              <p class="p_content">①创新设计报告电子版(A4)，报告内容包括设计目的、
                 设计(制作)流程、技术路线、创新特色、可行性论证等;</p>
-              <p>②汇报PPT</p>
+              <p class="p_content">②汇报PPT</p>
               <p>(3)创业计划</p>
-              <p>①创业计划书电子版(A4)，包括产品/服务介绍、市场
+              <p class="p_content">①创业计划书电子版(A4)，包括产品/服务介绍、市场
               分析、营销方案、生产运作管理、财务预测等;</p>
-              <p>②汇报PPT。</p>
+              <p class="p_content">②汇报PPT。</p>
+              <p>注意事项</p>
+              <p  class="p_content important_content">请务必将以上参赛类别所要求提交的资料打包成一个压缩包进行上传！</p>
            </div>
           </el-card>
       </el-col>
@@ -40,11 +42,13 @@
                   <el-upload
                     ref="upload"
                     action=""
+                    :limit="1"
                     list-type="picture-card"
                     :file-list="fileList"
                     :on-success="onSuccess"
                     :on-change="onChange"
                     :http-request="uploadMehod"
+                    :before-upload="beforeUpload"
                     :auto-upload="false">
                     <i slot="default" class="el-icon-plus"></i>
                     <div slot="file" slot-scope="{file}">
@@ -82,7 +86,7 @@
                 </el-form-item>
               </el-form>
               <div class="btn-content">
-                <el-button type="primary" @click="onSubmit">提交</el-button>
+                <el-button type="primary" :disabled="btnDisabled" @click="onSubmit">提交</el-button>
                 <el-button type="primary">清屏</el-button>
               </div>
           </el-card>
@@ -115,7 +119,8 @@ export default {
         dialogImageUrl: '',
         dialogVisible: false,
         disabled: false,
-        imgUrl:require("../../assets/img/pdf.png")
+        btnDisabled:true,
+        imgUrl:require("../../assets/img/zip.png")
       }
     },
   mounted(){
@@ -129,6 +134,24 @@ export default {
     },
     onChange(item){
       console.log(item)
+      this.fileList.push(item)
+      let name = item.name
+      let index = name.lastIndexOf('.')
+      name = name.substring(index+1,name.length)
+      console.log(name)
+      if(this.form.projectname!=""){
+        if(name ==="7z" ||
+          name==="zip" ||
+          name==="rar"){
+          this.btnDisabled = false
+        }else{
+          this.$message.warning("请上传压缩包文件，格式为zip/rar/7z")
+        }
+      }
+    },
+    beforeUpload(file){
+      /* const isZip = file.type ==='zip/7Z/rar' */
+      console.log(file)
     },
    async uploadMehod(params){
       console.log(params)
@@ -147,12 +170,24 @@ export default {
         }
       })
       console.log(res)
+      if(res.status==200){
+        this.$alert('信息与资料提交成功', '提示', {
+          confirmButtonText: '确定',
+      })
+      }else{
+          this.$alert('信息与资料提交失败', '提示', {
+          confirmButtonText: '确定',
+      })
+      }
     },
     onSuccess(response, file, fileList){
       console.log(response)
     },
-    handleRemove(file) {
-        console.log(file);
+    handleRemove(file,fileList) {
+        let uploadFiles = this.$refs['upload'].uploadFiles;
+        console.log(uploadFiles)
+        let index = uploadFiles.indexOf(file);
+        uploadFiles.splice(index,1)
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = this.imgUrl;
@@ -170,7 +205,7 @@ export default {
     /* min-height: 500px;
     max-height: 800px; */
     width: 100%;
-    height: calc(100vh - 95px);
+    /* height: calc(100vh - 95px); */
     margin-top: 15px;
     display: flex;
     justify-content: center;
@@ -180,23 +215,34 @@ export default {
   }
 .notice-view{
   margin-top: 55px;
+  height: 491px;
+  margin-left: 8px;
   }
-  .notice-content{
+.notice-content{
     font-size: 15px;
   }
 .box-card {
     width: 100%;
     height: 100%;
-    overflow: auto;
+  /*   overflow: auto; */
+    position: relative;
   }
 
 .btn-content{
   width: 100%;
   display: flex;
   justify-content: center;
+  position: absolute;
+  bottom: 8px;
 }
 .description{
   margin-top: 20px;
+}
+.p_content{
+  font-weight: 500;
+}
+.important_content{
+  text-decoration:underline
 }
         /*滚动条样式*/
 .box-card::-webkit-scrollbar {

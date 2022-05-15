@@ -53,6 +53,7 @@ export default {
             this.$router.push({name:'superusermanage'})
             break;
           case "3-1":
+            this.$router.push({name:'superfilemanage'})
             break;
           default:
             break;    

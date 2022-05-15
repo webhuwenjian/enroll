@@ -9,6 +9,7 @@ Vue.use(VueRouter)
 const login = ()=>import('../view/login.vue')
 const home = ()=>import('../view/home/home.vue')
 const notice =()=>import('../view/noticeview/NoticeView.vue')
+const reviewView = ()=>import('../view/review/ReviewView.vue')
 const matchCenter = ()=>import('../component/content/matchcenter/MatchCenter.vue')
 const fileSubmit =()=>import('../component/content/FileSubmit.vue')
 const fileReview = ()=>import('../component/content/filereview/FileReview.vue')
@@ -17,8 +18,9 @@ const userManage = ()=>import('../component/content/filereview/UserManage.vue')
 const addStudent = ()=>import('../component/content/filereview/AddStudent.vue')
 const permissionManage = ()=>import('../component/content/filereview/PermissionManage.vue')
 const superManage =()=> import('../component/content/supermanage/SuperManage.vue')
-const superUserManage =()=>import('../component/content/supermanage/SuperUserManage.vue')
-const addUser = ()=>import('../component/content/supermanage/superusermanage/AddUser.vue')
+const superUserManage =()=>import('../component/content/supermanage/superusermanage/SuperUserManage.vue')
+const superFileManage =()=>import('../component/content/supermanage/superfilemanage/SuperFileManage.vue')
+/* const addUser = ()=>import('../component/content/supermanage/superusermanage/AddUser.vue') */
 const noticeManage = ()=>import('../component/content/supermanage/systemmanage/NoticeManage.vue')
 const router = new VueRouter({
     routes:[
@@ -97,9 +99,9 @@ const router = new VueRouter({
                             component:superUserManage,
                         },
                         {
-                            path:'/home/supermanage/adduser',
-                            name:'adduser',
-                            component:addUser 
+                            path:'/home/supermanage/superfilemanage',
+                            name:'superfilemanage',
+                            component:superFileManage
                         },
                         {
                             path:'/home/supermanage/noticemanage',
@@ -114,6 +116,12 @@ const router = new VueRouter({
             path:'/noticeview',
             name:'notice',
             component:notice
+        },
+        {
+            path:'/reviewview',
+            name:'review',
+            component:reviewView
+
         }
     ]
 })
@@ -127,6 +135,8 @@ router.beforeEach((to,from,next)=>{
     // 如果用户访问的路径是登录页,则直接放行
     if (to.path==='/login') return next()
     if (to.path==='/matchcenter') return next()
+    if (to.path==='/noticeview') return next()
+    if (to.path==='/reviewview') return next()
     //否则用户就没有访问登录页,那我们就需要先获取token
     //通过token有没值来判断,是否给用户进行强制跳转
     //获取token
@@ -136,13 +146,13 @@ router.beforeEach((to,from,next)=>{
     if (!tokenStr) return next('/login')
     // 如果没有return出去,证明tokenStr存在,直接放行
     next()
-    if(to.path=='/filesubmit'){
+  /*   if(to.path=='/filesubmit'){
         if(from.path=='/login'){
             next()
         }else{
             next('/login')
         }
-    }
+    } */
 })
 
 export default router;
