@@ -50,6 +50,7 @@ export default {
     },
     methods:{
         onSubmit(){
+          let token = sessionStorage.getItem('token')
             this.$http.post('/manage/SchoolUpdate',
             {
                 username:this.oldForm.username,
@@ -58,6 +59,12 @@ export default {
                     username:this.form.username,
                     password:this.form.password
                 }
+
+            },
+            {
+              headers:{
+                'Authorization':'Bearer '+token
+              }
             }).then((res)=>{
                 console.log(res)
                 if(res.data.status==200){

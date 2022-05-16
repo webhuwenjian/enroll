@@ -13,14 +13,14 @@
             </div>
           </el-header>
           <el-main>
-            <div><info-window 
+       <!--      <div><info-window 
             :visible="infoWindowVisible"
             :projectInfo="infoWindowProjectInfo"
             :teamInfo="infoWindowTeamInfo"
             :sequennceNum="sequennceNum"
             @cancel="updateVisivble"
             @updateCheck="updateCheck"
-            /></div>
+            /></div> -->
             <el-table
                   :data="tableData"
                   border
@@ -71,8 +71,8 @@
                     header-align="center"
                     >
                     <template slot-scope="scope">
-                      <el-button @click="handleClick(scope.row)" type="primary" size="small">查看信息</el-button>
                       <el-button @click="downLoad(scope.row)"  type="primary" size="small">下载资料</el-button>
+                      <el-button @click="handleClick(scope.row)" type="primary" size="small">审核通过</el-button>
                     </template>
                   </el-table-column>
             </el-table>
@@ -95,7 +95,6 @@
 </template>
 
 <script>
-import InfoWindow from './InfoWindow.vue'
 export default {
     name:'FileManage',
     data(){
@@ -107,11 +106,11 @@ export default {
           infoWindowProjectInfo:{},
           infoWindowTeamInfo:{},
           sequennceNum:0,
-          school:''
+          school:'',
+          token:''
         }
     },
     components:{
-      InfoWindow,
     },
     mounted(){
       this.uploadProject();
@@ -122,49 +121,37 @@ export default {
         },
         handleClick(row) {
           console.log(row)
-          //获取学校队伍
-          this.sequennceNum = row.num
-          this.$http.get('/school/Team',{
-            params:{
-              school:row.school
-            }
-          }).then((res)=>{
-            /* console.log(res) */
-            //利用自定义序号取出点击的队伍信息
-            this.infoWindowProjectInfo = res.data.data[row.num-1]
+          this.$confirm('确认该组别所有信息和材料都符合参赛要求并通过审核吗？', '提示', {
+          distinguishCancelAndClose: true,
+          confirmButtonText: '确定',
+          cancelButtonText: '取消'
           })
-          //获取队伍人员信息
-          this.$http.get('/school/TeamDetail',{
-            params:{
-              school:row.school,
-              teamCategory:row.teamCategory
-            }
-          }).then((res)=>{
-            console.log(res)
-            let data =[]
-            res.data.data.map((item)=>{
-              if(item.name!=""&&
-                item.major!=""&&
-                item.studentID!=""){
-                  data.push(item)
-                }
-            })
-            this.infoWindowTeamInfo = data
+          .then(() => {
+            this.updateCheck(row)
           })
-          this.infoWindowVisible =true
-        },
-        updateVisivble(res){
-          console.log(res)
-          this.infoWindowVisible= res
+          .catch(action => {
+              this.$message.warning("未进行审核操作")
+          });
         },
         updateCheck(res){
-          console.log(res,this.school)
+          let token = sessionStorage.get('token')
           this.$http.post('/school/TeamFileCheck',
           {
-            school:this.school,
+            school:res.school,
             teamCategory:res.teamCategory
-          }).then((res)=>{
+          },
+          {
+            headers:{
+              'Authorization':'Bearer '+token
+            }
+          }
+          ).then((res)=>{
             console.log(res)
+            if(res.data.status==200){
+              this.$message.success("审核完成")
+            }else{
+              this.$message.error("审核失败")
+            }
           })
         /*   console.log(this.tableData)
           let newtableData=[]
@@ -234,6 +221,9 @@ export default {
         console.log(args)
         },
         uploadProject(){
+          let token = sessionStorage.getItem('token')
+          this.token = token
+          console.log(token)
            let school= this.$store.state.school
            this.school = school
            this.admin = school
@@ -242,6 +232,9 @@ export default {
             this.$http.get('/school/TeamWork',{
               params:{
                 school:school
+              },
+              headers:{
+              'Authorization':'Bearer '+token
               }
             }).then((res)=>{
               console.log(res)

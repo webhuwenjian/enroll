@@ -155,6 +155,8 @@ export default {
     },
    async uploadMehod(params){
       console.log(params)
+      let token = sessionStorage.getItem('token')
+      console.log(token)
       let formData = new FormData()
       let file = params.file
       formData.append('file',file)
@@ -166,7 +168,8 @@ export default {
         method:'post',
         data:formData,
         headers:{
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          'Authorization':'Bearer '+token
         }
       })
       console.log(res)

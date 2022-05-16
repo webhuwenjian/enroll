@@ -173,8 +173,8 @@ export default {
           }) 
           console.log(res)
           if(res.status===200){
-            this.$store.commit('produce',res.status)
-            sessionStorage.setItem("token", res.status);
+            this.$store.commit('produce',res.token)
+            sessionStorage.setItem("token", res.token);
             if(this.loginForm2.data.role==='超级管理员'){
               this.$router.push({name:'supermanage',params:{}})
             }else if(this.loginForm2.data.role==='管理员'){
@@ -198,7 +198,7 @@ export default {
                 }).then((res)=>{
                   console.log(res)
                   if(res.data.status===200){
-                    sessionStorage.setItem("token", res.status);
+                    sessionStorage.setItem("token", res.data.token);
                     this.$router.push({name:'filesubmit',params:{school:res.data.data[0].school,
                       teamCategory:res.data.data[0].teamCategory
                     }})
@@ -227,9 +227,13 @@ p {
     background: rgba(255, 255, 255, 0.618);
     margin: 0 auto;
    /*  margin-top: 80px; */
-   margin-right: 40px;
+    display: flex;
+    justify-content: center;
   }
-
+  .el-card__body{
+    width: 100%;
+    height: 100%;
+  }
   .el-form {
     width: 95%;
     margin: 10px auto;
@@ -283,8 +287,8 @@ p {
     color: 	#191970;
   }
 
-  .login_bar {
-    width: 100%;;
+  .login-bar {
+    width: 100vw;
     height: 100%;
   }
   .login{
@@ -293,7 +297,7 @@ p {
     display: flex;
     justify-content: right;
     align-items: center;
-    background: url('../assets/img/login.png') no-repeat center center fixed;
+    background: url('../assets/img/login.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

@@ -13,6 +13,9 @@ Vue.use(VueSeamlessScroll)
 Vue.config.productionTip = false
 axios.defaults.baseURL="http://139.224.188.129:3000"
 /* axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'; */
+/* axios.defaults.headers.get['Authorization'] = 'Bearer '+ sessionStorage.getItem('token') */
+/* axios.defaults.headers.common['Authorization'] = 'Bearer '+ sessionStorage.getItem('token') */
+console.log(sessionStorage.getItem('token'))
 Vue.prototype.$http = axios
 Vue.prototype.$qs = qs;
 Vue.use(ElementUI)

@@ -89,5 +89,8 @@ export default {
     overflow: hidden;
     background-color: #fff;
   }
+  .el-menu-item{
+  background-color: #DDDDDD;
+}
 
 </style>

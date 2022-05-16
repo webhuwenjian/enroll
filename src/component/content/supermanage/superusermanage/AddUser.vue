@@ -64,6 +64,7 @@ export default {
        async onSubmit(){
            this.loading = false
            console.log(this.form)
+           let token = sessionStorage.getItem('token')
            if(this.form.username!=""&&
             this.form.password!=""&&
             this.form.school!=""){
@@ -77,7 +78,11 @@ export default {
                     method:'post',
                     url:'/manage/SchoolRegister',
                     data:data,
+                    headers:{
+                      'Authorization':'Bearer '+token
+                    }
                 })
+                console.log(res)
                 if(res.status===200){
                     this.loading=false
                     this.cancel()

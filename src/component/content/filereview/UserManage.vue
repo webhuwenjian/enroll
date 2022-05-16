@@ -14,6 +14,13 @@
             </div>
           </el-header>
           <el-main >
+            <div><info-window 
+            :visible="infoWindowVisible"
+            :projectInfo="infoWindowProjectInfo"
+            :teamInfo="infoWindowTeamInfo"
+            :sequennceNum="sequennceNum"
+            @cancel="updateVisivble"/>
+            </div>
             <el-table
                   :data="tableData"
                   border
@@ -32,18 +39,18 @@
                     fixed
                     prop="num"
                     width="55"
-                    label="序号">
+                    label="序 号">
                   </el-table-column>
                   <el-table-column
                     fixed
                     header-align="center"
                     prop="username"
-                    label="账户">
+                    label="账 户">
                   </el-table-column>
                   <el-table-column
                     header-align="center"
                     prop="password"
-                    label="密码">
+                    label="密 码">
                   </el-table-column>
                    <el-table-column
                     header-align="center"
@@ -68,11 +75,10 @@
                   <el-table-column
                     header-align="center"
                     fixed="right"
-                    label="操作"
+                    label="操 作"
                     >
                     <template slot-scope="scope">
-                      <el-button @click="handleClick(scope.row)" type="primary"  size="small">修改</el-button>
-                      <el-button type="danger"  size="small">删除</el-button>
+                      <el-button @click="handleClick(scope.row)" type="primary"  size="small">详情信息</el-button>
                     </template>
                   </el-table-column>
             </el-table>
@@ -95,14 +101,22 @@
 </template>
 
 <script>
+import InfoWindow from './InfoWindow.vue'
 export default {
     name:'UserManage',
     data(){
         return{
           admin:'',
           currentPage4: 4,
-          tableData: []
+          tableData: [],
+          infoWindowVisible:false,
+          infoWindowProjectInfo:{},
+          infoWindowTeamInfo:{},
+          school:''
         }
+    },
+    components:{
+      InfoWindow
     },
     mounted(){
       this.uploadUser();
@@ -116,6 +130,47 @@ export default {
         },
         handleClick(row) {
         console.log(row);
+        //获取学校队伍
+        let token = sessionStorage.getItem('token')
+          this.sequennceNum = row.num
+          this.$http.get('/school/Team',{
+            params:{
+              school:this.school
+            },
+            headers:{
+              'Authorization':'Bearer '+token
+              }
+          }).then((res)=>{
+            /* console.log(res) */
+            //利用自定义序号取出点击的队伍信息
+            this.infoWindowProjectInfo = res.data.data[row.num-1]
+          })
+          //获取队伍人员信息
+          this.$http.get('/school/TeamDetail',{
+            params:{
+              school:this.school,
+              teamCategory:row.teamCategory
+            },
+             headers:{
+              'Authorization':'Bearer '+token
+            }
+          }).then((res)=>{
+            console.log(res)
+            let data =[]
+            res.data.data.map((item)=>{
+              if(item.name!=""&&
+                item.major!=""&&
+                item.studentID!=""){
+                  data.push(item)
+                }
+            })
+            this.infoWindowTeamInfo = data
+          })
+          this.infoWindowVisible =true
+        },
+         updateVisivble(res){
+          console.log(res)
+          this.infoWindowVisible= res
         },
         selectTable(args){
         console.log(args)
@@ -131,11 +186,16 @@ export default {
         },
         uploadUser(){
             let school= this.$store.state.school
+            let token = sessionStorage.getItem('token')
             this.admin = school
+            this.school = school
             console.log(school)
             this.$http.get('/school/Team',{
               params:{
                 school:school
+              },
+              headers:{
+                'Authorization':'Bearer '+token
               }
             }).then((res)=>{
               console.log(res)

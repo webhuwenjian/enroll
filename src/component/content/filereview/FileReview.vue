@@ -4,7 +4,7 @@
         <el-aside width="200px">
           <el-menu :default-openeds="['1']"
             @select="selectMenu">
-            <el-submenu index="1">
+            <el-submenu index="1" style="background-color=red">
               <template slot="title"><i class="el-icon-setting"></i>系统管理</template>
               <el-menu-item-group>
                 <el-menu-item index="1-1">用户管理</el-menu-item>
@@ -106,6 +106,12 @@ export default {
 .el-menu{
   border-right: none;
   border-top: solid 1px #e6e6e6 ;
+}
+div.el-submenu__title{
+  background-color: #DDDDDD;
+}
+.el-menu-item{
+  background-color: #DDDDDD;
 }
 .el-input{
   width: 200px;

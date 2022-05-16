@@ -4,6 +4,10 @@
         <el-header height="50px" style="text-align: right;font-size: 12px">
             <div class="header-button">
              <!--  <el-button icon="el-icon-plus" type="primary" @click="addUser" >添加</el-button> -->
+               <div class="admin">
+                  <div class="img"><img src="../../../../assets/img/new-admin.png" alt=""></div>
+                  <span class="name">超级管理员</span>
+               </div>
               <el-button type="danger" style="height=40px" :disabled="disabled" @click="deleteAll">批量删除<i class="el-icon-delete el-icon--right"></i></el-button>
               <el-button type="primary" icon="el-icon-download">导出Excel</el-button>
             </div>
@@ -90,7 +94,13 @@ export default {
            return "text-align:center"
         },
         uploadInfo(){
-            this.$http.get('/manage/AllTeamWork').then((res)=>{
+          let token = sessionStorage.getItem('token')
+            this.$http.get('/manage/AllTeamWork',{
+              headers:{
+                'Authorization':'Bearer '+token
+              }
+
+            }).then((res)=>{
                 console.log(res)
                 let data=[]
                 res.data.data.map((item,index)=>{
@@ -156,7 +166,31 @@ export default {
  .header-button{
   padding-top: 7px;
   height: 40px;
+  position: relative;
 } 
+.admin{
+  position: absolute;
+  width: 80px;
+  margin-left: 20px;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  color: #409EFF;
+}
+.admin .img{
+  width: 80px;
+  height: 20px;
+  text-align: center;
+}
+.admin .name{
+  width: 80px;
+  height: 20px;
+  text-align: center;
+}
+.admin img{
+  width: 20px;
+}
 .manage-table::-webkit-scrollbar-thumb {
     border-radius: 10px;
   -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);

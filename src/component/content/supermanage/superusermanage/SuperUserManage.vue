@@ -3,8 +3,12 @@
       <el-container class="manage-table">
         <el-header height="50px" style="text-align: right;font-size: 12px">
             <div class="header-button">
-              <el-input  v-model="input" placeholder="请输入搜索内容" style="width=15px"></el-input>
-              <el-button icon="el-icon-search">搜索</el-button>
+             <!--  <el-input  v-model="input" placeholder="请输入搜索内容" style="width=15px"></el-input>
+              <el-button icon="el-icon-search">搜索</el-button> -->
+               <div class="admin">
+                  <div class="img"><img src="../../../../assets/img/new-admin.png" alt=""></div>
+                  <span class="name">{{admin}}</span>
+               </div>
               <el-button icon="el-icon-plus" type="primary" @click="addUser" >添加</el-button>
               <el-button type="danger" style="height=40px" :disabled="disabled" @click="deleteAll">批量删除<i class="el-icon-delete el-icon--right"></i></el-button>
               <el-button type="primary" icon="el-icon-download">导出Excel</el-button>
@@ -80,6 +84,7 @@ export default {
     name:'SuperUserManage',
     data(){
         return{
+          admin:'超级管理员',
         visible:false,
         editVisible:false,
         form:null,
@@ -111,7 +116,13 @@ export default {
           this.editVisible =res
         },
         questUser(){
-            this.$http.get('/manage/School',{}
+           let token = sessionStorage.getItem('token')
+           console.log(token)
+            this.$http.get('/manage/School',{
+              headers:{
+                 Authorization:'Bearer '+token
+              }
+            }
             ).then((res)=>{
                 let data=[]
                 res.data.data.map((item,index)=>{
@@ -128,6 +139,7 @@ export default {
         },
         deleteClick(row){
             console.log(row)
+            let token = sessionStorage.getItem('token')
             this.$confirm('确认要删除该条信息吗？', '提示', {
               distinguishCancelAndClose: true,
               confirmButtonText: '确认',
@@ -138,6 +150,11 @@ export default {
                   {
                   username:row.username,
                   school:row.school
+                  },
+                  {
+                    headers:{
+                      'Authorization':'Bearer '+token
+                    }
                   }
                 )
                  if(res.status==200){
@@ -200,7 +217,31 @@ export default {
  .header-button{
   padding-top: 7px;
   height: 40px;
+  position: relative;
 } 
+.admin{
+  position: absolute;
+  width: 80px;
+  margin-left: 20px;
+  top: 0px;
+  left: 4px;
+  display: flex;
+  flex-direction: column;
+  color: #409EFF;
+}
+.admin .img{
+  width: 80px;
+  height: 20px;
+  text-align: center;
+}
+.admin .name{
+  width: 80px;
+  height: 20px;
+  text-align: center;
+}
+.admin img{
+  width: 20px;
+}
 .manage-table::-webkit-scrollbar-thumb {
     border-radius: 10px;
   -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);

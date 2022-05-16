@@ -257,6 +257,7 @@ export default {
            const newstudentInfo = studentInfo.filter(d=>d)
            console.log(newstudentInfo)
                 if(true){
+                    let token = sessionStorage.getItem('token')
                     this.$http.post('/school/TeamRegister',{
                          teamInfo:{
                              school:this.school,
@@ -272,6 +273,10 @@ export default {
                              school:this.school
                          },
                          studentInfo:newstudentInfo
+                         },{
+                             headers:{
+                                 'Authorization':'Bearer '+token
+                             }
                     }).then((res)=>{
                         console.log(res)
                         if(res.data.status===200){
