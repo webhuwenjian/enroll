@@ -210,10 +210,9 @@ export default {
         console.log(args)
         },
         uploadProject(){
-          let token = sessionStorage.getItem('token')
-          this.token = token
-          console.log(token)
-           let school= this.$store.state.school
+           let token = sessionStorage.getItem('token')
+           this.token = token
+           let school= sessionStorage.getItem('school')
            this.school = school
            this.admin = school
            console.log(this.admin)

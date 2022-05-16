@@ -39,7 +39,8 @@ export default {
     name:'EditUser',
     props:[
         "visible",
-        "form"
+        "form",
+        "info"
     ],
     data(){
         return{
@@ -50,11 +51,12 @@ export default {
     },
     methods:{
         onSubmit(){
+          console.log(this.oldForm)
           let token = sessionStorage.getItem('token')
             this.$http.post('/manage/SchoolUpdate',
             {
-                username:this.oldForm.username,
-                school:this.oldForm.school,
+                username:this.info.username,
+                school:this.info.school,
                 updateInfo:{
                     username:this.form.username,
                     password:this.form.password

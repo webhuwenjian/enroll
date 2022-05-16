@@ -11,14 +11,16 @@
                       label-width="auto"
                       :model='loginForm2.data'
                       :rules='loginForm2.rule'>
-                      <el-form-item label="账号" prop="name" >
+                      <el-form-item  prop="name" >
+                        <label slot="label" >账&nbsp&nbsp&nbsp&nbsp号</label>
                           <el-input
                               placeholder="邮箱/手机号码"
                               prefix-icon="el-icon-user-solid"
                               v-model="loginForm2.data.name">
                           </el-input>
                       </el-form-item>
-                      <el-form-item label="密码" prop="password">
+                      <el-form-item  prop="password">
+                        <label slot="label" >密&nbsp&nbsp&nbsp&nbsp码</label>
                           <el-input
                               type='password'
                               placeholder="请输入密码"
@@ -27,7 +29,8 @@
                               v-model="loginForm2.data.password">
                           </el-input>
                       </el-form-item>
-                      <el-form-item label="角色" prop="">
+                      <el-form-item  prop="">
+                        <label slot="label" >角&nbsp&nbsp&nbsp&nbsp色</label>
                         <el-select style="width:100%" 
                               v-model="value" 
                               @change="onChange"
@@ -110,6 +113,7 @@ export default {
             }else if(this.loginForm2.data.role==='管理员'){
               this.$router.push({name:'usermanage',params:{school:res.data[0].school}})
               this.$store.commit('getschool',res.data[0].school)
+              sessionStorage.setItem("school", res.data[0].school);
             }
           }else{
             this.$message.error('账号或密码错误！');
@@ -203,10 +207,10 @@ export default {
     display: flex;
     justify-content: right;
     align-items: center;
-/*     background: url('../assets/img/login.jpg') no-repeat center center fixed;
+    background: url('../../assets/img/login.png') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover; */
+    background-size: cover;
   }
 </style>

@@ -39,6 +39,11 @@
                 </el-table-column>
                 <el-table-column
                  header-align="center"
+                 prop="teamCategory" 
+                 label="参赛类别">
+                </el-table-column>
+                <el-table-column
+                 header-align="center"
                  prop="teacherName"
                  label="指导教师" >
                 </el-table-column>
@@ -52,16 +57,11 @@
                  prop="teacherWeChat" 
                  label="微信号">
                 </el-table-column>
-                <el-table-column
-                 header-align="center"
-                 prop="teamCategory" 
-                 label="参赛类别">
-                </el-table-column>
-                <el-table-column
+             <!--    <el-table-column
                  header-align="center"
                  prop="username" 
                  label="账 号">
-                </el-table-column>
+                </el-table-column -->>
                 <el-table-column
                     header-align="center"
                     fixed="right"
@@ -99,7 +99,7 @@ export default {
             disabled:true,
             tableData:[],
             currentPage:1,
-            pageSize:7,
+            pageSize:6,
             total:20
         }
     },
@@ -224,7 +224,7 @@ export default {
 .block{
   text-align: center;
   position: absolute;
-  bottom: 0;
+  bottom: 15px;
   left: 380px;
 }
 .manage-table::-webkit-scrollbar-thumb {

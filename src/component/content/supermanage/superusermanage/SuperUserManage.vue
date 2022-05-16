@@ -21,6 +21,7 @@
             <edit-user
               :visible="editVisible"
               :form="form"
+              :info="info"
               @cancel="editCancel"/>
             <el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                   border
@@ -99,7 +100,8 @@ export default {
           admin:'超级管理员',
         visible:false,
         editVisible:false,
-        form:null,
+        form:{},
+        info:{username:'',school:''},
         disabled:true,
         input:'',
         tableData: [],
@@ -151,6 +153,8 @@ export default {
         handleClick(row) {
             this.editVisible = true
             this.form = row
+            this.info.username = row.username
+            this.info.school = row.school
         },
         deleteClick(row){
             console.log(row)

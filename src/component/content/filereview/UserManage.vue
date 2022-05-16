@@ -187,7 +187,7 @@ export default {
         console.log(args)
         },
         uploadUser(){
-            let school= this.$store.state.school
+            let school= sessionStorage.getItem('school')
             let token = sessionStorage.getItem('token')
             this.admin = school
             this.school = school

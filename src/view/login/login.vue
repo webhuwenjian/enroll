@@ -11,14 +11,16 @@
                       label-width="auto"
                       :model='loginForm.data'
                       :rules='loginForm.rule'>
-                      <el-form-item label="账号" prop="name" >
+                      <el-form-item  prop="name" >
+                        <label slot="label" >账&nbsp&nbsp&nbsp&nbsp号</label>
                           <el-input
                               placeholder="邮箱/手机号码"
                               prefix-icon="el-icon-user-solid"
                               v-model="loginForm.data.username">
                           </el-input>
                       </el-form-item>
-                      <el-form-item label="密码" prop="password">
+                      <el-form-item  prop="password">
+                        <label slot="label" >密&nbsp&nbsp&nbsp&nbsp码</label>
                           <el-input
                               type='password'
                               placeholder="请输入密码"
@@ -95,11 +97,11 @@ export default {
          },
         rule: {
           name: [
-            {required: true, message: '请输入账号', trigger: 'blur'},
+            /* {required: true, message: '请输入账号', trigger: 'blur'}, */
            /*  {pattern: '^([0-9]{9})$', message: '账号不能为空', trigger: 'blur'} */
           ],
           password: [
-            {required: true, message: '密码不能为空', trigger: 'blur'},
+            /* {required: true, message: '密码不能为空', trigger: 'blur'}, */
         /*     {
               min: 6,
               max: 16,
@@ -289,11 +291,11 @@ p {
     display: flex;
     justify-content: right;
     align-items: center;
-/*     background: url('../assets/img/login.jpg') no-repeat center center fixed;
+    background: url('../../assets/img/login.png') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover; */
+    background-size: cover;
   }
 
 </style>

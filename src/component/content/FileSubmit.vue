@@ -1,6 +1,9 @@
 <template>
   <div class="file-submit">
     <el-row>
+        <el-col :span="2">
+        <div style="color:#fff;font-size:3px">1</div>
+      </el-col>
       <el-col :span="7">
          <el-card class="notice-view">
             <div slot="header" style="text-align:center; font-size:16px;">
@@ -9,23 +12,22 @@
             <div class="notice-content">
               <p>(1)创新开发</p>
               <p></p>
-              <p class="p_content">①创新开发技术报告电子版(A4)，报告内容包括开发目的、开<br/>发流程、技术手段、创新特色、功能、典型界面等;</p>
+              <p class="p_content">①创新开发技术报告电子版(A4)，报告内容包括开发目的、开发流程、技术手段、创新特色、功能、典型界面等;</p>
               <p class="p_content">②功能演示DEMO；</p>
               <p class="p_content">③汇报PPT</p>
               <p style="margin-top:8px">(2)创新设计</p>
               <p class="p_content">①创新设计报告电子版(A4)，报告内容包括设计目的、
-                设计<br/>(制作)流程、技术路线、创新特色、可行性论证等;</p>
+                设计(制作)流程、技术路线、创新特色、可行性论证等;</p>
               <p class="p_content">②汇报PPT</p>
               <p style="margin-top:8px">(3)创业计划</p>
-              <p class="p_content">①创业计划书电子版(A4)，包括产品/服务介绍、市场
-              分析、<br/>营销方案、生产运作管理、财务预测等;</p>
+              <p class="p_content">①创业计划书电子版(A4)，包括产品/服务介绍、市场分析、营销方案、生产运作管理、财务预测等;</p>
               <p class="p_content">②汇报PPT。</p>
               <p style="margin-top:8px">注意事项</p>
-              <p  class="p_content important_content">请务必将以上参赛类别所要求提交的资料打包成一个压缩包<br/>进行上传！</p>
+              <p  class="p_content important_content">请务必将以上参赛类别所要求提交的资料打包成一个压缩包进行上传！</p>
            </div>
           </el-card>
       </el-col>
-      <el-col :span="14">
+      <el-col :span="13">
         <div class="grid-content">
           <el-card class="box-card">
              <el-form ref="form" :model="form" label-width="80px">
@@ -91,6 +93,9 @@
               </div>
           </el-card>
         </div>
+      </el-col>
+      <el-col :span="2">
+        <div style="color:#fff;font-size:3px">1</div>
       </el-col>
     </el-row>
   </div>
