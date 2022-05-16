@@ -90,7 +90,9 @@ export default {
     background-color: #fff;
   }
   .el-menu-item{
-  background-color: #DDDDDD;
+  font-size: 13px;
+  font-weight: normal;
+
 }
 
 </style>

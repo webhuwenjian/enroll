@@ -1,27 +1,27 @@
 <template>
   <div class="file-submit">
     <el-row>
-      <el-col :span="6">
+      <el-col :span="7">
          <el-card class="notice-view">
             <div slot="header" style="text-align:center; font-size:16px;">
               <span>资料提交说明</span>
             </div>
             <div class="notice-content">
               <p>(1)创新开发</p>
-              <p class="p_content">①创新开发技术报告电子版(A4)，报告内容包括开发
-              目的、开发流程、技术手段、创新特色、功能、典型界面等;</p>
+              <p></p>
+              <p class="p_content">①创新开发技术报告电子版(A4)，报告内容包括开发目的、开<br/>发流程、技术手段、创新特色、功能、典型界面等;</p>
               <p class="p_content">②功能演示DEMO；</p>
               <p class="p_content">③汇报PPT</p>
-              <p>(2)创新设计</p>
+              <p style="margin-top:8px">(2)创新设计</p>
               <p class="p_content">①创新设计报告电子版(A4)，报告内容包括设计目的、
-                设计(制作)流程、技术路线、创新特色、可行性论证等;</p>
+                设计<br/>(制作)流程、技术路线、创新特色、可行性论证等;</p>
               <p class="p_content">②汇报PPT</p>
-              <p>(3)创业计划</p>
+              <p style="margin-top:8px">(3)创业计划</p>
               <p class="p_content">①创业计划书电子版(A4)，包括产品/服务介绍、市场
-              分析、营销方案、生产运作管理、财务预测等;</p>
+              分析、<br/>营销方案、生产运作管理、财务预测等;</p>
               <p class="p_content">②汇报PPT。</p>
-              <p>注意事项</p>
-              <p  class="p_content important_content">请务必将以上参赛类别所要求提交的资料打包成一个压缩包进行上传！</p>
+              <p style="margin-top:8px">注意事项</p>
+              <p  class="p_content important_content">请务必将以上参赛类别所要求提交的资料打包成一个压缩包<br/>进行上传！</p>
            </div>
           </el-card>
       </el-col>
@@ -208,17 +208,18 @@ export default {
     /* min-height: 500px;
     max-height: 800px; */
     width: 100%;
-    /* height: calc(100vh - 95px); */
-    margin-top: 15px;
+    height:calc(100vh - 125px);
+  /*   margin-top: 15px; */
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    padding: 40px;
+    padding: 20px;
   }
 .notice-view{
-  margin-top: 55px;
-  height: 491px;
+  margin-top: 11px;
+  height:calc(100vh - 110px);
+  /* width: 100%; */
   margin-left: 8px;
   }
 .notice-content{
@@ -226,8 +227,10 @@ export default {
   }
 .box-card {
     width: 100%;
-    height: 100%;
+   /*  height:calc(100vh - 125px); */
+   height: 100%;
   /*   overflow: auto; */
+  padding: 8px;
     position: relative;
   }
 
@@ -243,6 +246,7 @@ export default {
 }
 .p_content{
   font-weight: 500;
+  margin-top: 8px;
 }
 .important_content{
   text-decoration:underline

@@ -4,8 +4,8 @@
             <div class="header-button">
               <div class="admin">
                   <div class="img"><img src="../../../assets/img/new-admin.png" alt=""></div>
-                  <span>{{admin}}</span>
-            </div>
+                  <span class="name">{{admin}}</span>
+             </div>
               <!-- <el-input  v-model="input" placeholder="请输入搜索内容" style="width=15px"></el-input> -->
               <!-- <el-button icon="el-icon-search">搜索</el-button> -->
               <!-- <el-button type="primary">上传<i class="el-icon-upload el-icon--right"></i></el-button> -->
@@ -13,16 +13,8 @@
             </div>
           </el-header>
           <el-main>
-       <!--      <div><info-window 
-            :visible="infoWindowVisible"
-            :projectInfo="infoWindowProjectInfo"
-            :teamInfo="infoWindowTeamInfo"
-            :sequennceNum="sequennceNum"
-            @cancel="updateVisivble"
-            @updateCheck="updateCheck"
-            /></div> -->
             <el-table
-                  :data="tableData"
+                  :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                   border
                   @select="selectTable"
                   @select-all="selectAllTable"
@@ -83,11 +75,11 @@
                background
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-                :current-page="currentPage4"
-                :page-sizes="[100, 200, 300, 400]"
-                :page-size="100"
+                :current-page="currentPage"
+                :page-sizes="[1,5,10,20]"
+                :page-size="pageSize"
                 layout="total, sizes, prev, pager, next, jumper"
-                :total="400">
+                :total="tableData.length">
               </el-pagination>
             </div>
           </el-footer>
@@ -100,8 +92,10 @@ export default {
     data(){
         return{
           admin:'南京工业大学',
-          currentPage4: 4,
           tableData: [],
+          currentPage:1,
+          pageSize:5,
+          total:20,
           infoWindowVisible:false,
           infoWindowProjectInfo:{},
           infoWindowTeamInfo:{},
@@ -214,12 +208,6 @@ export default {
         selectAllTable(args){
         console.log(args)
         },
-        handleSizeChange(args){
-        console.log(args)
-        },
-        handleCurrentChange(args){
-        console.log(args)
-        },
         uploadProject(){
           let token = sessionStorage.getItem('token')
           this.token = token
@@ -250,7 +238,16 @@ export default {
               this.tableData=data
            console.log(this.tableData)
             })
-        }
+        },
+        handleSizeChange(value){
+          console.log(`每頁${value}条`)
+          this.currentPage = 1
+          this.pageSize = value
+        },
+        handleCurrentChange(val){
+            console.log(`当前页:${val}`)
+            this.currentPage = val
+        },
     }
 }
 </script>
@@ -279,7 +276,7 @@ export default {
   position: absolute;
   width: 80px;
   margin-left: 20px;
-  top: 8px;
+  top: 4px;
   left: 4px;
   display: flex;
   flex-direction: column;
@@ -287,7 +284,13 @@ export default {
 }
 .admin .img{
   width: 80px;
+  height: 20px;
+  line-height: 20px;
   text-align: center;
+}
+.admin .name{
+    height: 20px;
+  line-height: 20px;
 }
 .admin img{
   width: 20px;

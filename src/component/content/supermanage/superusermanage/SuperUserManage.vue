@@ -14,7 +14,7 @@
               <el-button type="primary" icon="el-icon-download">导出Excel</el-button>
             </div>
         </el-header>    
-        <el-main>
+        <el-main style="position:relative;">
             <add-user 
             :visible="visible" @cancel="cancel"
             :identity="identity" />
@@ -22,7 +22,7 @@
               :visible="editVisible"
               :form="form"
               @cancel="editCancel"/>
-            <el-table :data="tableData"
+            <el-table :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                   border
                   @select="selectTable"
                   @select-all="selectAllTable"
@@ -38,7 +38,7 @@
                     fixed
                     prop="num"
                     width="55"
-                    label="序    号"
+                    label="序号"
                     >
                   </el-table-column>
                 <el-table-column 
@@ -72,6 +72,18 @@
                     </template>
                   </el-table-column>
             </el-table>
+            <div class="block">
+              <el-pagination
+                background
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-sizes="[1,5,10,20]"
+                :page-size="pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="tableData.length">
+              </el-pagination>
+            </div>
          </el-main>
      </el-container>
   </div>
@@ -91,6 +103,9 @@ export default {
         disabled:true,
         input:'',
         tableData: [],
+        currentPage:1,
+        pageSize:7,
+        total:20,
         identity:''
         }
     },
@@ -184,6 +199,14 @@ export default {
         },
         deleteAll(){
 
+        },
+        handleSizeChange(value){
+          this.currentPage = 1
+          this.pageSize = value
+        },
+        handleCurrentChange(val){
+           console.log(`当前页:${val}`)
+          this.currentPage = val
         }
     }
 
@@ -215,7 +238,7 @@ export default {
   width: 15px;
 }
  .header-button{
-  padding-top: 7px;
+ /*  padding-top: 7px; */
   height: 40px;
   position: relative;
 } 
@@ -223,7 +246,7 @@ export default {
   position: absolute;
   width: 80px;
   margin-left: 20px;
-  top: 0px;
+  top: 4px;
   left: 4px;
   display: flex;
   flex-direction: column;
@@ -232,15 +255,24 @@ export default {
 .admin .img{
   width: 80px;
   height: 20px;
+  line-height: 20px;
   text-align: center;
 }
 .admin .name{
   width: 80px;
   height: 20px;
+  line-height: 20px;
   text-align: center;
 }
 .admin img{
   width: 20px;
+  height: 20px;
+}
+.block{
+  text-align: center;
+  position: absolute;
+  bottom: 20px;
+  left: 380px;
 }
 .manage-table::-webkit-scrollbar-thumb {
     border-radius: 10px;

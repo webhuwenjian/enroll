@@ -4,7 +4,7 @@
       <el-col :span="24">
         <div class="login-bar">
                    <!--   参赛队伍登录入口 -->
-          <el-card class="login-card" v-if="this.$route.params.isRole" shadow="always">
+          <el-card class="login-card" v-if="this.$route.query.isRole" shadow="always">
             <div style="width:100%; text-align: center;font-weight: bold;font-size: 20px;">江苏省高校测绘地理信息创新创业大赛</div>
                   <el-form ref="loginForm"
                       label-position='right'
@@ -297,11 +297,11 @@ p {
     display: flex;
     justify-content: right;
     align-items: center;
-    background: url('../assets/img/login.jpg') no-repeat center center fixed;
+/*     background: url('../assets/img/login.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
+    background-size: cover; */
   }
 
 </style>

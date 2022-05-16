@@ -44,15 +44,6 @@ const router = new VueRouter({
             component:home,
             children:[
                 {
-                    path:'',
-                    redirect:'/home/matchcenter'
-                },
-                {
-                    path:'/home/matchcenter',
-                    name:'matchcenter',
-                    component:matchCenter
-                },
-                {
                     path:'/home/filesubmit',
                     name:'filesubmit',
                     component:fileSubmit

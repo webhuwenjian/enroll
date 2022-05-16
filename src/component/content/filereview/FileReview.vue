@@ -4,21 +4,23 @@
         <el-aside width="200px">
           <el-menu :default-openeds="['1']"
             @select="selectMenu">
-            <el-submenu index="1" style="background-color=red">
+        <!--     <el-submenu index="1" style="background-color=red">
               <template slot="title"><i class="el-icon-setting"></i>系统管理</template>
               <el-menu-item-group>
                 <el-menu-item index="1-1">用户管理</el-menu-item>
                 <el-menu-item index="1-2">权限管理</el-menu-item>
-               <!--  <el-menu-item index="1-3">角色管理</el-menu-item> -->
+                <el-menu-item index="1-3">角色管理</el-menu-item>
               </el-menu-item-group>
             </el-submenu>
             <el-submenu index="2">
               <template slot="title"><i class="el-icon-folder"></i>资料管理</template>
               <el-menu-item-group>
                 <el-menu-item index="2-1">资料管理</el-menu-item>
-              <!--   <el-menu-item index="2-2">其它管理</el-menu-item> -->
+                <el-menu-item index="2-2">其它管理</el-menu-item>
               </el-menu-item-group>
-            </el-submenu>
+            </el-submenu> -->
+            <el-menu-item class="review-menu-item" index="1-1"><i class="el-icon-user-solid"></i>用户管理</el-menu-item>
+            <el-menu-item  class="review-menu-item" index="2-1"><i class="el-icon-folder"></i>资料管理</el-menu-item>
           </el-menu>
         </el-aside> 
         <router-view></router-view>
@@ -86,7 +88,7 @@ export default {
   }
   
 .el-aside{
-  height:calc(100vh - 100px);
+ /*  height:100vh; */
   background-color: #fff;
 }
   .el-header {
@@ -96,6 +98,7 @@ export default {
   
   .el-aside {
     color: #fff;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   }
   .content{
     height:calc(100vh - 100px);
@@ -111,7 +114,8 @@ div.el-submenu__title{
   background-color: #DDDDDD;
 }
 .el-menu-item{
-  background-color: #DDDDDD;
+/*   font-size: 18px; */
+  /* font-weight: normal; */
 }
 .el-input{
   width: 200px;

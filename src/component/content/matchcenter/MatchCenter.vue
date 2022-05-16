@@ -147,6 +147,7 @@ export default {
     },
     data(){
       return{
+       /*  isShow:false, */
         day:'',
         hour:14,
         supportImg:[{imageUrl:require('../../../assets/img/logo.png')},
@@ -203,15 +204,22 @@ export default {
                 }
   },
   mounted(){
+   /*  this.$nextTick(()=>{
+      this.isShow = true
+    }) */
     //更新时间
     this.updateDay();
   },
   methods:{
     register(){
-      this.$router.push({name:'login',params:{isRole:true}})
+      /* this.$router.push({name:'login',params:{isRole:true}}) */
+      let routeUrl = this.$router.resolve({name:'login',query:{isRole:true}})
+      window.open(routeUrl.href,'_blank')
     },
     doWork(){
-      this.$router.push({name:'login',params:{isRole:false}})
+      /* this.$router.push({name:'login',params:{isRole:false}}) */
+      let routeUrl = this.$router.resolve({name:'login',query:{isRole:false}})
+      window.open(routeUrl.href,'_blank')
     },
     updateDay(){
       setInterval(() => {
