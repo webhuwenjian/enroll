@@ -6,7 +6,8 @@ VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
 Vue.use(VueRouter)
-const login = ()=>import('../view/login.vue')
+const login = ()=>import('../view/login/login.vue')
+const workLogin =()=> import('../view/login/WorkLogin.vue')
 const home = ()=>import('../view/home/home.vue')
 const notice =()=>import('../view/noticeview/NoticeView.vue')
 const reviewView = ()=>import('../view/review/ReviewView.vue')
@@ -37,6 +38,11 @@ const router = new VueRouter({
             path:'/login',
             name:'login',
             component:login
+        },
+        {
+            path:'/workLogin',
+            name:'worklogin',
+            component:workLogin
         },
         {
             path:'/home',
@@ -125,6 +131,7 @@ router.beforeEach((to,from,next)=>{
 
     // 如果用户访问的路径是登录页,则直接放行
     if (to.path==='/login') return next()
+    if (to.path==='/workLogin') return next()
     if (to.path==='/matchcenter') return next()
     if (to.path==='/noticeview') return next()
     if (to.path==='/reviewview') return next()

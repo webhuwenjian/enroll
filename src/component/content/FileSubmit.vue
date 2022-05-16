@@ -134,7 +134,7 @@ export default {
     },
     onChange(item){
       console.log(item)
-      this.fileList.push(item)
+      /* this.fileList.push(item) */
       let name = item.name
       let index = name.lastIndexOf('.')
       name = name.substring(index+1,name.length)

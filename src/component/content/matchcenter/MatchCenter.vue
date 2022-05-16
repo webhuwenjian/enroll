@@ -213,12 +213,12 @@ export default {
   methods:{
     register(){
       /* this.$router.push({name:'login',params:{isRole:true}}) */
-      let routeUrl = this.$router.resolve({name:'login',query:{isRole:true}})
+      let routeUrl = this.$router.resolve({path:'/login'})
       window.open(routeUrl.href,'_blank')
     },
     doWork(){
       /* this.$router.push({name:'login',params:{isRole:false}}) */
-      let routeUrl = this.$router.resolve({name:'login',query:{isRole:false}})
+      let routeUrl = this.$router.resolve({path:'/workLogin'})
       window.open(routeUrl.href,'_blank')
     },
     updateDay(){

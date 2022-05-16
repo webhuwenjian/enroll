@@ -4,7 +4,7 @@
       <el-col :span="24">
         <div class="login-bar">
                    <!--   参赛队伍登录入口 -->
-          <el-card class="login-card" v-if="this.$route.query.isRole" shadow="always">
+          <el-card class="login-card"  shadow="always">
             <div style="width:100%; text-align: center;font-weight: bold;font-size: 20px;">江苏省高校测绘地理信息创新创业大赛</div>
                   <el-form ref="loginForm"
                       label-position='right'
@@ -31,17 +31,8 @@
             <el-button type="primary" @click="studentLogin" class="enter-button">登录</el-button>
           </el-card>
           <!-- 工作人员登录入口 -->
-          <el-card class="login-card" v-else  shadow="always">
+        <!--   <el-card class="login-card" v-else  shadow="always">
             <div style="width:100%; text-align: center;font-weight: bold;font-size: 20px;">江苏省高校测绘地理信息创新创业大赛</div>
-            <!--   <el-popover
-                  placement="left"
-                  title="标题"
-                  width="200"
-                  trigger="manual"
-                  content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
-                  v-model="visible">
-                  <el-button slot="reference" @click="visible = !visible">手动激活</el-button>
-                </el-popover> -->
                   <el-form ref="loginForm"
                       label-position='right'
                       label-width="auto"
@@ -78,7 +69,7 @@
                       </el-form-item>
                   </el-form>
             <el-button type="primary" @click="doEnter" class="enter-button">登录</el-button>
-          </el-card>
+          </el-card> -->
         </div>
       </el-col>
     </el-row>
@@ -91,6 +82,7 @@ export default {
     name:"Login",
     data(){
         return{
+        isShow:false,
         visible:true,
         vis: true,
         activeName: 'first',
@@ -216,7 +208,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 p {
     margin: 0
   }
@@ -235,7 +227,7 @@ p {
     height: 100%;
   }
   .el-form {
-    width: 95%;
+    width: 100%;
     margin: 10px auto;
   }
 

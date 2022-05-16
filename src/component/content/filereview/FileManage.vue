@@ -128,7 +128,7 @@ export default {
           });
         },
         updateCheck(res){
-          let token = sessionStorage.get('token')
+          let token = sessionStorage.getItem('token')
           this.$http.post('/school/TeamFileCheck',
           {
             school:res.school,
@@ -143,6 +143,7 @@ export default {
             console.log(res)
             if(res.data.status==200){
               this.$message.success("审核完成")
+              location.reload
             }else{
               this.$message.error("审核失败")
             }
