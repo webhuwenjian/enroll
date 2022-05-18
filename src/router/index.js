@@ -20,9 +20,11 @@ const addStudent = ()=>import('../component/content/filereview/AddStudent.vue')
 const permissionManage = ()=>import('../component/content/filereview/PermissionManage.vue')
 const superManage =()=> import('../component/content/supermanage/SuperManage.vue')
 const superUserManage =()=>import('../component/content/supermanage/superusermanage/SuperUserManage.vue')
+const superExpertManage =()=>import('../component/content/supermanage/superexpertmanage/SuperExpertManage.vue')
 const superFileManage =()=>import('../component/content/supermanage/superfilemanage/SuperFileManage.vue')
 /* const addUser = ()=>import('../component/content/supermanage/superusermanage/AddUser.vue') */
 const noticeManage = ()=>import('../component/content/supermanage/systemmanage/NoticeManage.vue')
+const expertManage= ()=>import('../component/content/expertmanage/ExpertManage.vue')
 const router = new VueRouter({
     routes:[
         {
@@ -96,6 +98,11 @@ const router = new VueRouter({
                             component:superUserManage,
                         },
                         {
+                            path:'/home/supermanage/superexpertmanage',
+                            name:'superexpertmanage',
+                            component:superExpertManage
+                        },
+                        {
                             path:'/home/supermanage/superfilemanage',
                             name:'superfilemanage',
                             component:superFileManage
@@ -107,6 +114,11 @@ const router = new VueRouter({
                         }
                     ]
                 },
+                {
+                    path:'/home/expertmanage',
+                    name:'expertmanage',
+                    component:expertManage
+                }
             ]
         },
         {
@@ -135,6 +147,7 @@ router.beforeEach((to,from,next)=>{
     if (to.path==='/matchcenter') return next()
     if (to.path==='/noticeview') return next()
     if (to.path==='/reviewview') return next()
+    if(to.path==='/home/expertmanage') return next()
     //否则用户就没有访问登录页,那我们就需要先获取token
     //通过token有没值来判断,是否给用户进行强制跳转
     //获取token

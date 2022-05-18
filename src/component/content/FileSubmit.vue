@@ -34,13 +34,13 @@
                 <el-form-item label="项目名称">
                   <el-input v-model="form.projectname"></el-input>
                 </el-form-item>
-                <el-form-item label="报名单位">
+                <el-form-item label="报名单位" style="margin-top:50px">
                   <el-input v-model="this.$route.params.school" disabled="disabled"></el-input>
                 </el-form-item>
-                <el-form-item label="参赛类型">
+                <el-form-item label="参赛类型" style="margin-top:50px">
                   <el-input v-model="this.$route.params.teamCategory" disabled="disabled"></el-input>
                 </el-form-item>
-                <el-form-item label="上传材料">
+                <el-form-item label="上传材料" style="margin-top:50px">
                   <el-upload
                     ref="upload"
                     action=""
@@ -89,7 +89,7 @@
               </el-form>
               <div class="btn-content">
                 <el-button type="primary" :disabled="btnDisabled" @click="onSubmit">提交</el-button>
-                <el-button type="primary">清屏</el-button>
+                <el-button type="primary" @click="onEmpty">清屏</el-button>
               </div>
           </el-card>
         </div>
@@ -119,6 +119,7 @@ export default {
           desc: '',
         },
         fileList:[],
+        file:null,
         isSubmit:true,
         active:1,
         dialogImageUrl: '',
@@ -137,8 +138,11 @@ export default {
         console.log(res.data) */
         this.$refs.upload.submit();
     },
+    onEmpty(){
+      this.form.projectname="",
+      this.handleRemove(this.file)
+    },
     onChange(item){
-      console.log(item)
       /* this.fileList.push(item) */
       let name = item.name
       let index = name.lastIndexOf('.')
@@ -155,8 +159,7 @@ export default {
       }
     },
     beforeUpload(file){
-      /* const isZip = file.type ==='zip/7Z/rar' */
-      console.log(file)
+      this.fileList = file
     },
    async uploadMehod(params){
       console.log(params)
@@ -189,7 +192,7 @@ export default {
       }
     },
     onSuccess(response, file, fileList){
-      console.log(response)
+
     },
     handleRemove(file,fileList) {
         let uploadFiles = this.$refs['upload'].uploadFiles;
@@ -202,7 +205,6 @@ export default {
       this.dialogVisible = true;
       },
     handleDownload(file) {
-      console.log(file);
     }
   }
 }

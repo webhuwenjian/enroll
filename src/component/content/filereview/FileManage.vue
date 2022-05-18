@@ -289,8 +289,9 @@ export default {
   text-align: center;
 }
 .admin .name{
-    height: 20px;
+  height: 20px;
   line-height: 20px;
+  text-align: center;
 }
 .admin img{
   width: 20px;

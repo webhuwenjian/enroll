@@ -12,7 +12,7 @@
                 </el-submenu> -->
                 <el-submenu index="2">
                     <template slot="title"><i class="el-icon-menu"></i>用户管理</template>
-                  <!--   <el-menu-item index="2-1">专家账户</el-menu-item> -->
+                    <el-menu-item index="2-1">专家账户</el-menu-item>
                     <el-menu-item index="2-2">单位账户</el-menu-item>
                  </el-submenu>
                 <el-submenu index="3">
@@ -46,10 +46,9 @@ export default {
           console.log("项目风采")
             break;
           case "2-1":
-            console.log("专家账户")
+            this.$router.push({name:'superexpertmanage'})
             break;
           case "2-2":
-            console.log("单位账户")
             this.$router.push({name:'superusermanage'})
             break;
           case "3-1":

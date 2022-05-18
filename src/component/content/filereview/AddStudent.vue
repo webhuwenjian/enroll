@@ -20,7 +20,7 @@
                        <el-input v-model="form.teacherWeChat" placeholder="微信号"></el-input>
                   </el-col>
                 </el-form-item>
-                <el-form-item label="团队信息" >
+                <el-form-item label="团队信息" style="marign-top:50px" >
                   <el-col :span="5">
                     <el-input placeholder="团队负责人姓名" v-model="form.studentOneName"></el-input> 
                   </el-col>
@@ -112,7 +112,7 @@
                   </el-col>
                 </div>
                 </el-form-item>
-                <el-form-item label="参赛类型">
+                <el-form-item label="参赛类型" style="marign-top:50px">
                    <el-checkbox-group v-model="form.teamCategory" 
                         :max="1">
                         <el-checkbox label="本科生创新开发组" name="本科生创新开发组"></el-checkbox>
@@ -123,7 +123,7 @@
                         <el-checkbox label="研究生创业计划组" name="研究生创业计划组"></el-checkbox>
                     </el-checkbox-group>
                 </el-form-item>
-                 <el-form-item label="登录信息">
+                 <el-form-item label="登录信息" style="marign-top:50px">
                   <el-col :span="10">
                     <el-input v-model="form.username" placeholder="注册账号"></el-input>
                   </el-col>
@@ -312,6 +312,7 @@ export default {
 <style scoped>
     .add-student{
         width: 100%;
+        height: calc(100vh - 92px);
         margin-top: 8px;
         display: flex;
         justify-content: center;
@@ -319,11 +320,18 @@ export default {
     .box-card{
         width: 100%;
         height: 100%;
+        position: relative;
+    }
+    .el-card__body{
+        width: 100%;
+        height: 100%;
     }
     .btn-content{
         width: 100%;
         display: flex;
         justify-content: center;
+        position: absolute;
+        bottom: 15px;
     }
     .el-form-item label:after {
         content: "";

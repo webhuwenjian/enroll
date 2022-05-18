@@ -78,7 +78,7 @@
                     label="操 作"
                     >
                     <template slot-scope="scope">
-                      <el-button @click="handleClick(scope.row)" type="primary"  size="small">详情信息</el-button>
+                      <el-button @click="handleClick(scope.row)" type="primary"  size="small">详&nbsp&nbsp情</el-button>
                     </template>
                   </el-table-column>
             </el-table>

@@ -81,7 +81,7 @@ export default {
         }
         },
         options:[{value:"管理员",label:"参赛单位"},
-        {value:"专家用户",label:"专家用户"},
+        {value:"专家",label:"专家用户"},
         {value:"超级管理员",label:"管理员用户"}],
         value:''
         }
@@ -114,6 +114,10 @@ export default {
               this.$router.push({name:'usermanage',params:{school:res.data[0].school}})
               this.$store.commit('getschool',res.data[0].school)
               sessionStorage.setItem("school", res.data[0].school);
+            }else{
+              this.$router.push({name:'expertmanage'})
+              sessionStorage.setItem("school", res.data[0].school);
+              sessionStorage.setItem('teamCategory',res.data[0].teamCategory)
             }
           }else{
             this.$message.error('账号或密码错误！');
